@@ -116,6 +116,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('accueil');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [selectedImage, setSelectedImage] = useState(null);
+  const [activeModalImgIndex, setActiveModalImgIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [formData, setFormData] = useState({
@@ -235,7 +236,7 @@ export default function Portfolio() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('✅ Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
+        alert('Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
         // Réinitialiser le formulaire
         setFormData({
           name: '',
@@ -246,14 +247,14 @@ export default function Portfolio() {
       } else {
         if (data.errors) {
           const errorMessages = data.errors.map(err => err.message).join(', ');
-          alert(`❌ Erreur: ${errorMessages}`);
+          alert(`Erreur: ${errorMessages}`);
         } else {
-          alert('❌ Erreur lors de l\'envoi. Veuillez réessayer.');
+          alert('Erreur lors de l\'envoi. Veuillez réessayer.');
         }
       }
     } catch (error) {
       console.error('Erreur réseau:', error);
-      alert('❌ Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+      alert('Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
     }
   };
 
@@ -288,6 +289,18 @@ export default function Portfolio() {
       video: 'ADN.mp4',
       type: 'video',
       tags: ['After Effects', 'Animation', 'Direction Artistique']
+    },
+    {
+      category: 'Visuel',
+      title: 'Faire-Part et Programme d\'Obsèques - Agbosu Mary',
+      desc: 'Conception graphique et édition complète (Couverture et Verso) pour l\'annonce et le programme des obsèques de feue AGBOSU Mary épouse ZOZO, dite «SCHOOLTOR» (60 ans).',
+      image: 'obseques-agbosu-mary-front.jpg',
+      images: [
+        'obseques-agbosu-mary-front.jpg',
+        'obseques-agbosu-mary-back.jpg'
+      ],
+      type: 'image',
+      tags: ['Design Éditorial', 'Mise en page', 'Typographie', 'Print']
     },
     {
       category: 'Visuel',
@@ -445,43 +458,89 @@ export default function Portfolio() {
   const borderColor = darkMode ? 'border-fuchsia-900/60' : 'border-gray-200';
 
   // Ticker items
-  const tickerItems = ['LEZOZO DESIGN', 'UI/UX', 'VIDÉO MOTION', 'DEV WEB', 'BRANDING', 'IDENTITÉ VISUELLE', 'TOGO 🇹🇬'];
+  const tickerItems = ['LEZOZO DESIGN', 'UI/UX', 'VIDÉO MOTION', 'DEV WEB', 'BRANDING', 'IDENTITÉ VISUELLE', 'TOGO'];
 
   return (
     <div className={`min-h-screen ${bgClass} ${textClass} transition-colors duration-500 scroll-smooth`}>
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4 animate-fade-in"
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 animate-fade-in"
           onClick={() => setSelectedImage(null)}
         >
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-10"
+            className="absolute top-6 right-6 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm z-20 text-white"
           >
-            <X size={28} className="text-white" />
+            <X size={28} />
           </button>
-          <div className="max-w-6xl max-h-[90vh] w-full">
+
+          <div className="max-w-5xl max-h-[90vh] w-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
             {selectedImage.type === 'video' ? (
               <video
                 src={selectedImage.video}
                 controls
                 autoPlay
                 className="w-full h-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
               >
                 Votre navigateur ne supporte pas la lecture de vidéos.
               </video>
             ) : (
-              <img
-                src={selectedImage.image}
-                alt={selectedImage.title}
-                className="w-full h-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
-              />
+              <div className="relative w-full flex items-center justify-center">
+                <img
+                  src={selectedImage.images && selectedImage.images.length > 0 ? selectedImage.images[activeModalImgIndex] : selectedImage.image}
+                  alt={selectedImage.title}
+                  className="max-h-[70vh] w-auto object-contain rounded-lg shadow-2xl"
+                />
+
+                {selectedImage.images && selectedImage.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModalImgIndex((prev) => (prev - 1 + selectedImage.images.length) % selectedImage.images.length);
+                      }}
+                      className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-fuchsia-600 transition-all border border-slate-700 shadow-xl"
+                      title="Page précédente"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModalImgIndex((prev) => (prev + 1) % selectedImage.images.length);
+                      }}
+                      className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-fuchsia-600 transition-all border border-slate-700 shadow-xl"
+                      title="Page suivante"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                  </>
+                )}
+              </div>
             )}
+
+            {/* Thumbnail / Page tabs if multi-image */}
+            {selectedImage.images && selectedImage.images.length > 1 && (
+              <div className="flex gap-3 mt-4">
+                {selectedImage.images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveModalImgIndex(idx)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all border ${
+                      activeModalImgIndex === idx
+                        ? 'bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white border-fuchsia-400 shadow-lg shadow-fuchsia-600/40'
+                        : 'bg-slate-900/80 text-gray-400 border-slate-700 hover:text-white'
+                    }`}
+                  >
+                    {idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)'}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div className="mt-4 text-center">
               <h3 className="text-2xl font-bold text-white mb-2">{selectedImage.title}</h3>
-              <p className="text-gray-300">{selectedImage.desc}</p>
+              <p className="text-gray-300 max-w-3xl text-sm sm:text-base leading-relaxed">{selectedImage.desc}</p>
             </div>
           </div>
         </div>
@@ -624,7 +683,7 @@ export default function Portfolio() {
               whiteSpace: 'nowrap',
             }}
           >
-            DESIGNER · VIDEASTE · DEV WEB · TOGO 🇹🇬
+            DESIGNER · VIDEASTE · DEV WEB · TOGO
           </span>
         </div>
 
@@ -637,7 +696,7 @@ export default function Portfolio() {
             <div className="space-y-2.5 sm:space-y-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-[11px] sm:text-xs font-black uppercase tracking-wider backdrop-blur-md transition-all shadow-sm ${darkMode ? 'bg-fuchsia-950/60 border-fuchsia-800/80 text-fuchsia-300' : 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-700'}">
                 <span className="w-2 h-2 rounded-full bg-fuchsia-500 animate-ping" />
-                🇹🇬 WOEZON (Bienvenue)
+                WOEZON (Bienvenue)
               </div>
               
               <p className="text-base sm:text-lg md:text-xl font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 to-pink-500">
@@ -933,7 +992,10 @@ export default function Portfolio() {
               {filteredProjects.map((project, idx) => (
                 <div
                   key={idx}
-                  onClick={() => setSelectedImage(project)}
+                  onClick={() => {
+                    setSelectedImage(project);
+                    setActiveModalImgIndex(0);
+                  }}
                   className={`rounded-2xl overflow-hidden border ${borderColor} transition-all duration-500 group cursor-pointer shadow-xl hover:shadow-2xl hover:shadow-fuchsia-600/30 transform hover:-translate-y-1.5 flex flex-col justify-between ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}
                 >
                   {/* Media preview */}
