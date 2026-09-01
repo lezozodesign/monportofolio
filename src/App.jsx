@@ -293,7 +293,7 @@ export default function Portfolio() {
     {
       category: 'Visuel',
       title: 'Faire-Part et Programme d\'Obsèques - Agbosu Mary',
-      desc: 'Conception graphique et édition complète (Couverture et Verso) pour l\'annonce et le programme des obsèques de feue AGBOSU Mary épouse ZOZO, dite «SCHOOLTOR» (60 ans).',
+      desc: 'Conception graphique et édition complète (Couverture et Verso) pour l\'annonce et le programme des obsèques de feu AGBOSU Mary épouse ZOZO, dite «SCHOOLTOR» (60 ans).',
       image: 'obseques-agbosu-mary-front.jpg',
       images: [
         'obseques-agbosu-mary-front.jpg',
