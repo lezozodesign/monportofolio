@@ -3,12 +3,15 @@ import {
   Moon, Sun, Menu, X, Mail, Code, Palette, Video, Layers,
   ExternalLink, ChevronLeft, ChevronRight, User, Zap, Globe, Search, Rocket, Sparkles,
   Award, GraduationCap, CheckCircle2, Calendar, BookOpen, Headphones, PenTool, Terminal, Upload,
-  Diamond, WandSparkles, Clapperboard, PanelsTopLeft, Scissors
+  Diamond
 } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa';
 import { Icon as Iconify } from '@iconify/react';
 import canvaIcon from '@iconify-icons/cib/canva';
 import affinityDesignerIcon from '@iconify-icons/thesvg-color/affinity-designer';
+import afterEffectsIcon from '@iconify-icons/thesvg-color/after-effects';
+import premiereProIcon from '@iconify-icons/thesvg-color/premierepro';
+import capCutIcon from '@iconify-icons/thesvg-color/capcut';
 import {
   SiReact, SiTailwindcss, SiVite, SiJavascript, SiPhp, SiFigma,
   SiHtml5, SiCss, SiGit, SiMysql, SiLaravel, SiNodedotjs,
@@ -21,6 +24,18 @@ const CanvaIcon = ({ size = 24, ...props }) => (
 
 const AffinityDesignerIcon = ({ size = 24, ...props }) => (
   <Iconify icon={affinityDesignerIcon} width={size} height={size} {...props} />
+);
+
+const AfterEffectsIcon = ({ size = 24, ...props }) => (
+  <Iconify icon={afterEffectsIcon} width={size} height={size} {...props} />
+);
+
+const PremiereProIcon = ({ size = 24, ...props }) => (
+  <Iconify icon={premiereProIcon} width={size} height={size} {...props} />
+);
+
+const CapCutIcon = ({ size = 24, ...props }) => (
+  <Iconify icon={capCutIcon} width={size} height={size} {...props} />
 );
 
 // Composant de Carrousel réutilisable pour cartes de projet
@@ -1289,8 +1304,8 @@ export default function Portfolio() {
               { label: 'HTML5', Icon: SiHtml5, color: '#E34F26' },
               { label: 'CSS3', Icon: SiCss, color: '#264DE4' },
               { label: 'Git', Icon: SiGit, color: '#F05032' },
-              { label: 'After Effects', Icon: WandSparkles, color: '#9999FF' },
-              { label: 'Premiere Pro', Icon: Clapperboard, color: '#EA77FF' },
+              { label: 'After Effects', Icon: AfterEffectsIcon, color: '#9999FF' },
+              { label: 'Premiere Pro', Icon: PremiereProIcon, color: '#EA77FF' },
               { label: 'Affinity Designer', Icon: AffinityDesignerIcon, color: '#7B61FF' },
               { label: 'DaVinci Resolve', Icon: SiDavinciresolve, color: '#FF6B4A' },
               { label: 'MySQL', Icon: SiMysql, color: '#00758F' },
@@ -1306,8 +1321,8 @@ export default function Portfolio() {
               { label: 'HTML5', Icon: SiHtml5, color: '#E34F26' },
               { label: 'CSS3', Icon: SiCss, color: '#264DE4' },
               { label: 'Git', Icon: SiGit, color: '#F05032' },
-              { label: 'After Effects', Icon: WandSparkles, color: '#9999FF' },
-              { label: 'Premiere Pro', Icon: Clapperboard, color: '#EA77FF' },
+              { label: 'After Effects', Icon: AfterEffectsIcon, color: '#9999FF' },
+              { label: 'Premiere Pro', Icon: PremiereProIcon, color: '#EA77FF' },
               { label: 'Affinity Designer', Icon: AffinityDesignerIcon, color: '#7B61FF' },
               { label: 'DaVinci Resolve', Icon: SiDavinciresolve, color: '#FF6B4A' },
               { label: 'MySQL', Icon: SiMysql, color: '#00758F' },
@@ -1338,26 +1353,26 @@ export default function Portfolio() {
               { label: 'Node.js', Icon: SiNodedotjs, color: '#68A063' },
               { label: 'Bootstrap', Icon: SiBootstrap, color: '#7952B3' },
               { label: 'Canva', Icon: CanvaIcon, color: '#00C4CC' },
-              { label: 'CapCut', Icon: Scissors, color: '#FF3366' },
+              { label: 'CapCut', Icon: CapCutIcon, color: '#FF3366' },
               { label: 'MySQL', Icon: SiMysql, color: '#00758F' },
               { label: 'Figma', Icon: SiFigma, color: '#F24E1E' },
               { label: 'React', Icon: SiReact, color: '#61DAFB' },
               { label: 'Laravel', Icon: SiLaravel, color: '#FF2D20' },
               { label: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
-              { label: 'After Effects', Icon: WandSparkles, color: '#9999FF' },
+              { label: 'After Effects', Icon: AfterEffectsIcon, color: '#9999FF' },
               { label: 'Git', Icon: SiGit, color: '#F05032' },
               /* duplicate */
               { label: 'GitHub', Icon: SiGithub, color: '#ffffff' },
               { label: 'Node.js', Icon: SiNodedotjs, color: '#68A063' },
               { label: 'Bootstrap', Icon: SiBootstrap, color: '#7952B3' },
               { label: 'Canva', Icon: CanvaIcon, color: '#00C4CC' },
-              { label: 'CapCut', Icon: Scissors, color: '#FF3366' },
+              { label: 'CapCut', Icon: CapCutIcon, color: '#FF3366' },
               { label: 'MySQL', Icon: SiMysql, color: '#00758F' },
               { label: 'Figma', Icon: SiFigma, color: '#F24E1E' },
               { label: 'React', Icon: SiReact, color: '#61DAFB' },
               { label: 'Laravel', Icon: SiLaravel, color: '#FF2D20' },
               { label: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
-              { label: 'After Effects', Icon: WandSparkles, color: '#9999FF' },
+              { label: 'After Effects', Icon: AfterEffectsIcon, color: '#9999FF' },
               { label: 'Git', Icon: SiGit, color: '#F05032' },
             ].map((tool, i) => {
               const ToolIcon = tool.Icon;
