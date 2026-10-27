@@ -133,121 +133,6 @@ function ProjectCarousel({ project, onSelect }) {
   );
 }
 
-function SkillCard({ name, level, idx, darkMode }) {
-  const [visible, setVisible] = useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0, gx: 50, gy: 50, hover: false });
-  const radius = 34;
-  const circumference = 2 * Math.PI * radius;
-
-  useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 150 + idx * 90);
-    return () => clearTimeout(timer);
-  }, [idx]);
-
-  const handlePointerMove = (event) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const px = (event.clientX - bounds.left) / bounds.width;
-    const py = (event.clientY - bounds.top) / bounds.height;
-
-    setTilt({
-      x: (0.5 - py) * 18,
-      y: (px - 0.5) * 18,
-      gx: px * 100,
-      gy: py * 100,
-      hover: true,
-    });
-  };
-
-  const resetTilt = () => setTilt({ x: 0, y: 0, gx: 50, gy: 50, hover: false });
-
-  return (
-    <div
-      style={{ perspective: '900px' }}
-      className={idx % 2 ? 'animate-float-delayed' : 'animate-float'}
-    >
-      <div
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'rotateY(0deg) translateY(0)' : 'rotateY(-70deg) translateY(24px)',
-          transition: 'opacity 0.8s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
-          transformStyle: 'preserve-3d',
-        }}
-      >
-        <div
-          onPointerMove={handlePointerMove}
-          onPointerLeave={resetTilt}
-          className={`relative flex min-h-64 flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border p-5 text-center ${
-            darkMode
-              ? 'bg-gradient-to-br from-[#1b1740] to-[#0f1226] border-violet-500/25'
-              : 'bg-white/80 border-violet-200'
-          }`}
-          style={{
-            transformStyle: 'preserve-3d',
-            transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${tilt.hover ? 1.035 : 1})`,
-            transition: tilt.hover ? 'transform 0.08s linear' : 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-            boxShadow: tilt.hover
-              ? '0 24px 40px -15px rgba(139,92,246,0.4), 0 0 0 1px rgba(139,92,246,0.35)'
-              : '0 18px 35px -20px rgba(0,0,0,0.45)',
-          }}
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background: `radial-gradient(circle at ${tilt.gx}% ${tilt.gy}%, rgba(255,255,255,${tilt.hover ? 0.14 : 0}), transparent 55%)`,
-              transition: 'background 0.1s',
-            }}
-          />
-          <div
-            className="relative h-24 w-24"
-            style={{ transform: 'translateZ(28px)' }}
-            role="img"
-            aria-label={`${name} : ${level}%`}
-          >
-            <svg viewBox="0 0 80 80" className="h-full w-full -rotate-90" aria-hidden="true">
-              <defs>
-                <linearGradient id={`skill-gradient-${idx}`} x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#8b5cf6" />
-                  <stop offset="100%" stopColor="#6366f1" />
-                </linearGradient>
-              </defs>
-              <circle
-                cx="40"
-                cy="40"
-                r={radius}
-                fill="none"
-                strokeWidth="7"
-                stroke={darkMode ? '#0B0D17' : '#e2e8f0'}
-              />
-              <circle
-                cx="40"
-                cy="40"
-                r={radius}
-                fill="none"
-                strokeWidth="7"
-                strokeLinecap="round"
-                stroke={`url(#skill-gradient-${idx})`}
-                strokeDasharray={circumference}
-                strokeDashoffset={visible ? circumference * (1 - level / 100) : circumference}
-                style={{ transition: 'stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1)' }}
-              />
-            </svg>
-            <span className="absolute inset-0 flex items-center justify-center text-lg font-black text-violet-400">
-              {level}%
-            </span>
-          </div>
-          <span
-            className="relative font-extrabold text-sm leading-snug"
-            style={{ transform: 'translateZ(18px)' }}
-          >
-            {name}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Portfolio() {
   const [pageLoading, setPageLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
@@ -307,7 +192,7 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    const sections = ['accueil', 'services', 'formations', 'projets', 'skills', 'contact'];
+    const sections = ['accueil', 'services', 'formations', 'projets', 'outils', 'contact'];
 
     const spyObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -607,20 +492,6 @@ export default function Portfolio() {
     },
   ];
 
-  const skills = [
-    { name: 'Figma (UI/UX & Wireframing)', level: 95 },
-    { name: 'React & Vite (Développement)', level: 85 },
-    { name: 'Tailwind CSS & Responsive', level: 92 },
-    { name: 'PHP & Laravel (Back-End)', level: 75 },
-    { name: 'HTML5 / CSS3 / JavaScript Moderne', level: 92 },
-    { name: 'SQL & Modélisation (MCD/MLD)', level: 80 },
-    { name: 'DaVinci Resolve (Vidéo & Montage)', level: 82 },
-    { name: 'After Effects & Motion Design', level: 80 },
-    { name: 'Design Systems & Ergonomie', level: 90 },
-    { name: 'Affinity Designer 2 & Branding', level: 78 },
-    { name: 'Canva & Communication Visuelle', level: 95 },
-  ];
-
   const categories = ['Tous', 'Visuel', 'Vidéo', 'logo et brand board'];
 
   const filteredProjects = projects.filter(project => {
@@ -779,7 +650,7 @@ export default function Portfolio() {
               { id: 'services', label: 'Services', icon: Code },
               { id: 'formations', label: 'Formations', icon: GraduationCap },
               { id: 'projets', label: 'Projets', icon: Layers },
-              { id: 'skills', label: 'Compétences', icon: Zap },
+              { id: 'outils', label: 'Outils', icon: Zap },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map((item) => {
               const IconComponent = item.icon;
@@ -836,7 +707,7 @@ export default function Portfolio() {
               { id: 'services', label: 'Services', icon: Code },
               { id: 'formations', label: 'Formations', icon: GraduationCap },
               { id: 'projets', label: 'Projets', icon: Layers },
-              { id: 'skills', label: 'Compétences', icon: Zap },
+              { id: 'outils', label: 'Outils', icon: Zap },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map((item) => {
               const IconComponent = item.icon;
@@ -1284,7 +1155,7 @@ export default function Portfolio() {
       </section>
 
       {/* ========== DOUBLE MARQUEE — OUTILS & STACK ========== */}
-      <div className={`overflow-hidden py-10 relative ${darkMode ? 'bg-[#0E1120]' : 'bg-slate-100'} border-t border-b ${darkMode ? 'border-violet-500/15' : 'border-slate-200'}`}>
+      <div id="outils" className={`overflow-hidden py-10 relative scroll-mt-24 ${darkMode ? 'bg-[#0E1120]' : 'bg-slate-100'} border-t border-b ${darkMode ? 'border-violet-500/15' : 'border-slate-200'}`}>
         <div className="text-center mb-6">
           <span className="text-xs font-black uppercase tracking-[0.22em] text-violet-400">
             Stack & Outils Maîtrisés
@@ -1559,35 +1430,6 @@ export default function Portfolio() {
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ========== SKILLS SECTION ========== */}
-      <section id="skills" className="py-24 px-6 relative overflow-hidden">
-        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full opacity-[0.08] blur-[120px] pointer-events-none ${darkMode ? 'bg-violet-700' : 'bg-violet-200'}`} />
-
-        <div className="max-w-6xl mx-auto reveal-on-scroll">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-black uppercase tracking-[0.25em] text-violet-400 block animate-pulse">
-              Stack &amp; Outils
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-purple-300 to-indigo-300 uppercase tracking-tight">
-              Mon Expertise Technique
-            </h2>
-            <div className="h-1.5 w-24 bg-gradient-to-r from-violet-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-violet-500/40" />
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-            {skills.map((skill, idx) => (
-              <SkillCard
-                key={skill.name}
-                name={skill.name}
-                level={skill.level}
-                idx={idx}
-                darkMode={darkMode}
-              />
-            ))}
-          </div>
         </div>
       </section>
 
