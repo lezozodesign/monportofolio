@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Moon, Sun, Menu, X, Mail, Code, Palette, Video, Layers,
   ExternalLink, ChevronLeft, ChevronRight, User, Zap, Globe, Search, Rocket, Sparkles,
@@ -37,6 +38,29 @@ const PremiereProIcon = ({ size = 24, ...props }) => (
 const CapCutIcon = ({ size = 24, ...props }) => (
   <Iconify icon={capCutIcon} width={size} height={size} {...props} />
 );
+
+const toolProficiency = {
+  React: 85,
+  'Tailwind CSS': 92,
+  Vite: 85,
+  JavaScript: 92,
+  PHP: 75,
+  Figma: 95,
+  HTML5: 92,
+  CSS3: 92,
+  Git: 60,
+  'After Effects': 80,
+  'Premiere Pro': 50,
+  'Affinity Designer': 78,
+  'DaVinci Resolve': 82,
+  MySQL: 80,
+  Laravel: 75,
+  Canva: 95,
+  GitHub: 82,
+  'Node.js': 72,
+  Bootstrap: 90,
+  CapCut: 91,
+};
 
 // Composant de Carrousel réutilisable pour cartes de projet
 function ProjectCarousel({ project, onSelect }) {
@@ -133,12 +157,95 @@ function ProjectCarousel({ project, onSelect }) {
   );
 }
 
+function ToolBadge({ tool, darkMode, onShow, onHide }) {
+  const ToolIcon = tool.Icon;
+
+  return (
+    <button
+      type="button"
+      onMouseEnter={(event) => onShow(tool, event.currentTarget)}
+      onMouseLeave={onHide}
+      onFocus={(event) => onShow(tool, event.currentTarget)}
+      onBlur={onHide}
+      onClick={(event) => onShow(tool, event.currentTarget)}
+      aria-label={`${tool.label} : maîtrise ${tool.level} %`}
+      className={`flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-full border font-bold text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 ${
+        darkMode ? 'bg-slate-950/80 border-violet-500/20 text-slate-200' : 'bg-white border-slate-300 text-slate-700'
+      }`}
+    >
+      <ToolIcon size={18} style={{ color: tool.color, flexShrink: 0 }} />
+      <span>{tool.label}</span>
+    </button>
+  );
+}
+
+function ToolHologram({ tool }) {
+  const ToolIcon = tool.Icon;
+  const radius = 17;
+  const circumference = 2 * Math.PI * radius;
+
+  return createPortal(
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed z-[70] animate-fade-in"
+      style={{ left: tool.position.x, top: tool.position.y }}
+    >
+      <div className="relative flex w-48 items-center gap-3 overflow-hidden rounded-2xl border border-cyan-300/50 bg-[#071522]/95 px-3 py-2.5 shadow-[0_0_24px_rgba(34,211,238,0.24)] backdrop-blur-md">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(34,211,238,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,.14) 1px, transparent 1px)',
+            backgroundSize: '14px 14px',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-cyan-200 shadow-[0_0_12px_3px_rgba(34,211,238,0.65)] animate-pulse"
+        />
+        <ToolIcon className="relative z-10 shrink-0" size={22} style={{ color: tool.color }} aria-hidden="true" />
+        <span className="relative z-10 min-w-0 flex-1 truncate text-left text-xs font-bold text-cyan-50">
+          {tool.label}
+        </span>
+        <div className="relative z-10 h-10 w-10 shrink-0">
+          <svg viewBox="0 0 44 44" className="h-full w-full -rotate-90" aria-hidden="true">
+            <defs>
+              <linearGradient id="hologram-level-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#67e8f9" />
+                <stop offset="100%" stopColor="#8b5cf6" />
+              </linearGradient>
+            </defs>
+            <circle cx="22" cy="22" r={radius} fill="none" stroke="rgba(34,211,238,0.2)" strokeWidth="3" />
+            <circle
+              cx="22"
+              cy="22"
+              r={radius}
+              fill="none"
+              stroke="url(#hologram-level-gradient)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={circumference}
+              strokeDashoffset={circumference * (1 - tool.level / 100)}
+              style={{ filter: 'drop-shadow(0 0 3px rgba(34,211,238,0.8))' }}
+            />
+          </svg>
+          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-cyan-100 drop-shadow-[0_0_6px_rgba(103,232,249,0.75)]">
+            {tool.level}%
+          </span>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 export default function Portfolio() {
   const [pageLoading, setPageLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedTool, setSelectedTool] = useState(null);
   const [activeModalImgIndex, setActiveModalImgIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tous');
@@ -238,6 +345,23 @@ export default function Portfolio() {
       section.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
     }
+  };
+
+  const showToolProficiency = (tool, anchor) => {
+    const bounds = anchor.getBoundingClientRect();
+    const tooltipWidth = 192;
+    const tooltipHeight = 60;
+    const gap = 10;
+    const preferredX = bounds.right + gap + tooltipWidth <= window.innerWidth - 8
+      ? bounds.right + gap
+      : bounds.left - gap - tooltipWidth;
+    const x = Math.max(8, Math.min(preferredX, window.innerWidth - tooltipWidth - 8));
+    const y = Math.max(8, Math.min(
+      bounds.top + (bounds.height - tooltipHeight) / 2,
+      window.innerHeight - tooltipHeight - 8
+    ));
+
+    setSelectedTool({ ...tool, position: { x, y } });
   };
 
   // Formulaire Formspree
@@ -624,6 +748,8 @@ export default function Portfolio() {
           </div>
         </div>
       )}
+
+      {selectedTool && <ToolHologram tool={selectedTool} />}
 
       {/* Navigation Bar */}
       <nav className={`fixed w-full ${bgClass} bg-opacity-90 backdrop-blur-md z-40 border-b ${darkMode ? 'border-violet-500/15' : 'border-slate-200'} transition-colors duration-500`}>
@@ -1201,16 +1327,15 @@ export default function Portfolio() {
               { label: 'Canva', Icon: CanvaIcon, color: '#00C4CC' },
             ].map((tool, i) => {
               const ToolIcon = tool.Icon;
+              const toolWithLevel = { ...tool, Icon: ToolIcon, level: toolProficiency[tool.label] };
               return (
-                <div
+                <ToolBadge
                   key={i}
-                  className={`flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-full border font-bold text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md ${
-                    darkMode ? 'bg-slate-950/80 border-violet-500/20 text-slate-200' : 'bg-white border-slate-300 text-slate-700'
-                  }`}
-                >
-                  <ToolIcon size={18} style={{ color: tool.color, flexShrink: 0 }} />
-                  <span>{tool.label}</span>
-                </div>
+                  tool={toolWithLevel}
+                  darkMode={darkMode}
+                  onShow={showToolProficiency}
+                  onHide={() => setSelectedTool(null)}
+                />
               );
             })}
           </div>
@@ -1247,16 +1372,15 @@ export default function Portfolio() {
               { label: 'Git', Icon: SiGit, color: '#F05032' },
             ].map((tool, i) => {
               const ToolIcon = tool.Icon;
+              const toolWithLevel = { ...tool, Icon: ToolIcon, level: toolProficiency[tool.label] };
               return (
-                <div
+                <ToolBadge
                   key={i}
-                  className={`flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-full border font-bold text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md ${
-                    darkMode ? 'bg-slate-950/80 border-violet-500/20 text-slate-200' : 'bg-white border-slate-300 text-slate-700'
-                  }`}
-                >
-                  <ToolIcon size={18} style={{ color: tool.color, flexShrink: 0 }} />
-                  <span>{tool.label}</span>
-                </div>
+                  tool={toolWithLevel}
+                  darkMode={darkMode}
+                  onShow={showToolProficiency}
+                  onHide={() => setSelectedTool(null)}
+                />
               );
             })}
           </div>
