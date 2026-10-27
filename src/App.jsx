@@ -650,7 +650,7 @@ export default function Portfolio() {
               { id: 'services', label: 'Services', icon: Code },
               { id: 'formations', label: 'Formations', icon: GraduationCap },
               { id: 'projets', label: 'Projets', icon: Layers },
-              { id: 'outils', label: 'Stack & Outils', icon: Zap },
+              { id: 'outils', label: 'Outils', icon: Zap },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map((item) => {
               const IconComponent = item.icon;
@@ -707,7 +707,7 @@ export default function Portfolio() {
               { id: 'services', label: 'Services', icon: Code },
               { id: 'formations', label: 'Formations', icon: GraduationCap },
               { id: 'projets', label: 'Projets', icon: Layers },
-              { id: 'outils', label: 'Stack & Outils', icon: Zap },
+              { id: 'outils', label: 'Outils', icon: Zap },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map((item) => {
               const IconComponent = item.icon;
