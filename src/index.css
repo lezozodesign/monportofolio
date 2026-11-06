@@ -43,12 +43,33 @@ body {
 .reveal-on-scroll {
   opacity: 1;
   transform: none;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-reveal {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
 }
 
 .reveal-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.site-reveal.is-visible {
+  animation: site-reveal-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes site-reveal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Glassmorphism glass card - Soft Violet */
@@ -102,9 +123,9 @@ body {
 }
 .ambient-background-dark {
   background:
-    radial-gradient(ellipse at 16% 8%, rgba(91, 63, 170, 0.16), transparent 36%),
-    radial-gradient(ellipse at 88% 42%, rgba(44, 65, 133, 0.12), transparent 38%),
-    linear-gradient(145deg, #0b0d17 0%, #0d1020 48%, #0a0d17 100%);
+    radial-gradient(ellipse at 16% 8%, rgba(124, 58, 237, 0.28), transparent 42%),
+    radial-gradient(ellipse at 88% 42%, rgba(79, 70, 229, 0.22), transparent 44%),
+    linear-gradient(145deg, #11101f 0%, #111629 48%, #0d1020 100%);
 }
 .ambient-background-light {
   background:
@@ -114,27 +135,7 @@ body {
 }
 .ambient-background::before,
 .ambient-background::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-}
-.ambient-background::before {
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at center, black 12%, transparent 82%);
-}
-.ambient-background::after {
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-@media (max-width: 640px) {
-  .ambient-background::before {
-    background-size: 44px 44px;
-    opacity: 0.65;
-  }
+  display: none;
 }
 
 /* Page Loader styling */
@@ -268,4 +269,86 @@ body {
 }
 .animate-float-delayed {
   animation: float 6s ease-in-out 3s infinite;
+}
+
+.hero-scene-compact {
+  min-height: 0;
+  height: 100%;
+}
+
+.showreel-progress {
+  width: 0;
+  animation: showreel-progress 6.5s linear forwards;
+}
+.showreel-progress.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes showreel-progress {
+  to {
+    width: 100%;
+  }
+}
+
+.showreel-media-enter {
+  animation: showreel-media-enter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.showreel-image-motion {
+  animation: showreel-media-enter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both, showreel-image-motion 7s ease-in-out both;
+}
+
+.showreel-caption-enter {
+  animation: showreel-caption-enter 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes showreel-media-enter {
+  from {
+    opacity: 0.45;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes showreel-image-motion {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes showreel-caption-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .showreel-media-enter,
+  .showreel-image-motion,
+  .showreel-caption-enter,
+  .showreel-progress {
+    animation: none;
+  }
+
+  .showreel-progress {
+    width: 100%;
+  }
 }

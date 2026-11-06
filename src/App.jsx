@@ -18,6 +18,11 @@ import {
   SiHtml5, SiCss, SiGit, SiMysql, SiLaravel, SiNodedotjs,
   SiBootstrap, SiGithub, SiInstagram, SiTiktok, SiWhatsapp, SiDavinciresolve
 } from 'react-icons/si';
+import ThreeLogo from './ThreeLogo';
+import Hover3DButton from './Hover3DButton';
+import AnimatedBadge from './AnimatedBadge';
+import ParallaxCard from './ParallaxCard';
+import VideoShowcaseCarousel from './VideoShowcaseCarousel';
 
 const CanvaIcon = ({ size = 24, ...props }) => (
   <Iconify icon={canvaIcon} width={size} height={size} {...props} />
@@ -316,26 +321,40 @@ export default function Portfolio() {
       if (el) spyObserver.observe(el);
     });
 
+    const revealElements = document.querySelectorAll(
+      'section:not(#accueil), .glass-card-dark, .glass-card-light, .showreel-stage, .showreel-thumb, .reveal-on-scroll'
+    );
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
         }
       });
     }, {
-      threshold: 0.05,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.04,
+      rootMargin: '0px 0px -32px 0px'
     });
 
-    const revealElements = document.querySelectorAll('.reveal-on-scroll');
-    revealElements.forEach(el => revealObserver.observe(el));
+    revealElements.forEach((el, index) => {
+      el.classList.add('site-reveal');
+      el.style.setProperty('--reveal-delay', `${el.matches('section') ? 0 : (index % 4) * 65}ms`);
+      if (reduceMotion) {
+        el.classList.add('is-visible');
+      } else {
+        revealObserver.observe(el);
+      }
+    });
+    document.documentElement.classList.add('site-motion-ready');
 
     return () => {
+      document.documentElement.classList.remove('site-motion-ready');
       sections.forEach(id => {
         const el = document.getElementById(id);
         if (el) spyObserver.unobserve(el);
       });
-      revealElements.forEach(el => revealObserver.unobserve(el));
+      revealObserver.disconnect();
     };
   }, []);
 
@@ -459,6 +478,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'l\'Académie Digital Numérique (ADN)',
       desc: 'Remise de diplôme à la première promotion de l\'Académie Digital Numérique (ADN)',
+      image: '/thumbnails/adn.jpg',
       video: 'ADN.mp4',
       type: 'video',
       tags: ['ADN Togo', 'Remise de Diplôme', 'Direction Artistique']
@@ -467,6 +487,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'YMCA Togo - Formation en Entrepreneuriat',
       desc: 'FORMATION EN ENTREPRENEURIAT PAR LE YCMA Togo repportage sur la formation Yao Hervé Mawunyo AMEGNISSE',
+      image: '/thumbnails/ymca1.jpg',
       video: 'ymca1.mp4',
       type: 'video',
       tags: ['After Effects', 'Animation', 'Direction Artistique']
@@ -475,6 +496,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'YMCA Togo - Formation en Entrepreneuriat',
       desc: 'FORMATION EN ENTREPRENEURIAT PAR LE YCMA Togo repportage sur la formation Marceline Abla NOUKOUNOU',
+      image: '/thumbnails/ymca2.jpg',
       video: 'ymca2.mp4',
       type: 'video',
       tags: ['After Effects', 'Animation', 'Direction Artistique']
@@ -559,7 +581,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'Vidéo Promotionnelle pour le centre de formation Sichem',
       desc: 'Vidéo vlog promotionnelle qui parle d\'une école qui forme les jeunes à l\'élevage et l\'agriculture localisée à Zéglé (Togo)',
-      image: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&h=600&fit=crop',
+      image: '/thumbnails/sichem.jpg',
       video: 'sichem.mp4',
       type: 'video',
       tags: ['DaVinci Resolve', 'Animation', 'Direction Artistique']
@@ -568,7 +590,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'Vidéo Promotionnelle pour Chronos228',
       desc: 'Vidéo promotionnelle pour une cave à vin nommée Chronos228 à Lomé (Togo)',
-      image: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&h=600&fit=crop',
+      image: '/thumbnails/chronos.jpg',
       video: 'chronos.mp4',
       type: 'video',
       tags: ['After Effects', 'Animation', 'Direction Artistique']
@@ -577,7 +599,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'Motion pour Fic-rc Togo',
       desc: 'Animations pour un projet de fic-rc togo dont j\'ai été appelé à réaliser la vidéo',
-      image: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&h=600&fit=crop',
+      image: '/thumbnails/fic-rc.jpg',
       video: 'fic-rc.mp4',
       type: 'video',
       tags: ['Capcut', 'Canva', 'Animation']
@@ -682,8 +704,11 @@ export default function Portfolio() {
             {selectedImage.type === 'video' ? (
               <video
                 src={selectedImage.video}
-                controls
+                poster={selectedImage.image}
                 autoPlay
+                muted
+                playsInline
+                preload="metadata"
                 className="w-full h-full max-h-[70vh] object-contain rounded-2xl shadow-2xl border border-violet-500/20"
               >
                 Votre navigateur ne supporte pas la lecture de vidéos.
@@ -1048,6 +1073,8 @@ export default function Portfolio() {
         </div>
       </div>
 
+      <VideoShowcaseCarousel darkMode={darkMode} />
+
       {/* ========== SERVICES SECTION ========== */}
       <section id="services" className="py-24 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
@@ -1095,7 +1122,7 @@ export default function Portfolio() {
                     </p>
                   </div>
 
-                  <div className="mt-8 pt-4 border-t border-violet-500/15 flex items-center justify-between text-xs font-bold text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="mt-8 pt-4 border-t border-violet-500/15 flex items-center justify-between text-xs font-bold text-violet-400 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                     <span>En savoir plus</span>
                     <span>→</span>
                   </div>
@@ -1473,12 +1500,11 @@ export default function Portfolio() {
                   <div className="h-64 relative overflow-hidden bg-black flex items-center justify-center">
                     {project.type === 'video' ? (
                       <>
-                        <video
-                          src={project.video}
-                          className="w-full h-full object-cover"
-                          muted
-                          loop
-                          playsInline
+                        <img
+                          src={project.image}
+                          alt={`Aperçu de la vidéo : ${project.title}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute top-3 right-3 bg-violet-600 text-white px-3 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-lg">
                           <Video size={13} /> VIDÉO
@@ -1496,8 +1522,8 @@ export default function Portfolio() {
                       {project.category}
                     </div>
 
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                      <div className="flex flex-col items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-black/40 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                      <div className="flex flex-col items-center gap-2 transform translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0 transition-transform duration-300">
                         {project.type === 'video' ? (
                           <>
                             <div className="w-14 h-14 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-xl">
@@ -1592,7 +1618,7 @@ export default function Portfolio() {
               )}
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+            <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
               {projectNeeds.map((need) => {
                 const isChecked = selectedNeeds.includes(need.label);
                 return (
@@ -1650,9 +1676,9 @@ export default function Portfolio() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <form onSubmit={handleSubmit} className="h-full">
-              <div className={`p-8 rounded-3xl border ${borderColor} shadow-2xl h-full flex flex-col justify-between ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}>
+          <div className="grid md:grid-cols-2 gap-10 items-stretch min-w-0">
+            <form onSubmit={handleSubmit} className="h-full min-w-0">
+              <div className={`p-5 sm:p-8 rounded-3xl border ${borderColor} shadow-2xl h-full min-w-0 flex flex-col justify-between ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}>
                 <div className="space-y-6">
                   <div>
                     <label className="block mb-2 font-bold text-base tracking-wide">Nom complet *</label>
@@ -1720,47 +1746,47 @@ export default function Portfolio() {
               </div>
             </form>
 
-            <div className="space-y-6 flex flex-col justify-between">
+            <div className="space-y-6 flex min-w-0 flex-col justify-between">
               {/* WhatsApp direct card */}
               <a
                 href="https://wa.me/22899513224"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-6 rounded-2xl border ${borderColor} shadow-xl flex-1 flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02] hover:border-emerald-500 group ${
+                className={`p-4 sm:p-6 rounded-2xl border ${borderColor} shadow-xl flex-1 flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02] hover:border-emerald-500 group ${
                   darkMode ? 'glass-card-dark' : 'glass-card-light'
                 }`}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                   <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
                     <SiWhatsapp className="text-white" size={28} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <h3 className="font-extrabold text-xl tracking-wide">WhatsApp</h3>
                       <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Direct</span>
                     </div>
-                    <p className="text-emerald-400 font-bold text-lg select-all">+228 99 51 32 24</p>
+                    <p className="text-emerald-400 font-bold text-base sm:text-lg select-all">+228 99 51 32 24</p>
                   </div>
                 </div>
               </a>
 
               {/* Email card */}
-              <div className={`p-6 rounded-2xl border ${borderColor} shadow-xl flex-1 flex flex-col justify-center ${
+              <div               className={`p-4 sm:p-6 rounded-2xl border ${borderColor} shadow-xl flex-1 flex flex-col justify-center ${
                 darkMode ? 'glass-card-dark' : 'glass-card-light'
               }`}>
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                   <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-600/20">
                     <Mail className="text-white" size={28} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="font-extrabold text-xl tracking-wide">Email</h3>
-                    <p className="text-violet-400 font-bold text-lg select-all">zsundayabell@gmail.com</p>
+                    <p className="break-all text-violet-400 font-bold text-base sm:text-lg select-all">zsundayabell@gmail.com</p>
                   </div>
                 </div>
               </div>
 
               {/* Social icons */}
-              <div className={`p-6 rounded-2xl border ${borderColor} shadow-xl flex-1 flex flex-col justify-center ${
+              <div               className={`p-4 sm:p-6 rounded-2xl border ${borderColor} shadow-xl flex-1 flex flex-col justify-center ${
                 darkMode ? 'glass-card-dark' : 'glass-card-light'
               }`}>
                 <h3 className="font-extrabold text-xl mb-4 tracking-wide">Connectons-nous</h3>
