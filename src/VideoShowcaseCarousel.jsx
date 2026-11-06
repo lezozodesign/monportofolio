@@ -143,7 +143,7 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
   };
 
   return (
-    <section id="showreel" className={`relative overflow-hidden border-y py-20 sm:py-24 ${
+    <section id="showreel" className={`relative overflow-clip border-y py-20 sm:py-24 ${
       darkMode ? 'border-violet-500/15 bg-[#0E1120]' : 'border-slate-200 bg-slate-100/70'
     }`}>
       <div className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-violet-600/10 blur-[120px]" />
@@ -175,7 +175,7 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
         </div>
 
         <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
-          <div className="showreel-stage group relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-[0_30px_90px_rgba(0,0,0,0.4)] lg:col-span-8">
+          <div className="showreel-stage group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-[0_30px_90px_rgba(0,0,0,0.4)] sm:aspect-video lg:col-span-8">
             {!mediaError ? (
               currentItem.type === 'video' ? (
                 <video
@@ -220,19 +220,19 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
             )}
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-black/25" />
-            <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur-md">
+            <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-md sm:left-5 sm:top-5 sm:px-3 sm:text-[10px] sm:tracking-[0.15em]">
               {currentItem.type === 'video' ? <Film size={13} /> : <ImageIcon size={13} />}
               {currentItem.type === 'video' ? 'Extrait vidéo' : 'Création visuelle'}
             </span>
 
-            <div className="absolute bottom-6 left-6 right-16 z-10 sm:bottom-8 sm:left-8">
-              <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-violet-600 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white shadow-lg shadow-violet-900/30">
+            <div className="absolute bottom-4 left-4 right-4 z-10 sm:bottom-8 sm:left-8 sm:right-16">
+              <span className="mb-1.5 inline-flex max-w-full items-center gap-1.5 rounded-full bg-violet-600 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-white shadow-lg shadow-violet-900/30 sm:mb-2 sm:px-3 sm:text-[10px]">
                 <Sparkles size={12} /> {currentItem.category}
               </span>
-              <h3 key={`${currentItem.id}-title`} className="showreel-caption-enter max-w-2xl text-2xl font-black leading-tight text-white drop-shadow-lg sm:text-3xl lg:text-4xl">
+              <h3 key={`${currentItem.id}-title`} className="showreel-caption-enter max-w-2xl text-lg font-black leading-tight text-white drop-shadow-lg sm:text-3xl lg:text-4xl">
                 {currentItem.title}
               </h3>
-              <p key={`${currentItem.id}-description`} className="showreel-caption-enter mt-2 max-w-xl text-xs leading-relaxed text-white/75 drop-shadow sm:text-sm">
+              <p key={`${currentItem.id}-description`} className="showreel-caption-enter mt-1.5 max-w-xl text-[11px] leading-snug text-white/75 drop-shadow sm:mt-2 sm:text-sm sm:leading-relaxed">
                 {currentItem.description}
               </p>
             </div>
@@ -248,7 +248,7 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
           type="button"
           onClick={handlePrev}
           aria-label="Média précédent"
-          className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white opacity-100 shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-violet-600 lg:opacity-0 lg:group-hover:opacity-100 focus:opacity-100 sm:left-5 sm:h-12 sm:w-12"
+          className="absolute right-14 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white opacity-100 shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-violet-600 sm:left-5 sm:right-auto sm:top-1/2 sm:h-12 sm:w-12 sm:-translate-y-1/2 lg:opacity-0 lg:group-hover:opacity-100 focus:opacity-100"
         >
           <ChevronLeft size={20} />
         </button>
@@ -256,7 +256,7 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
           type="button"
           onClick={handleNext}
           aria-label="Média suivant"
-          className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white opacity-100 shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-violet-600 lg:opacity-0 lg:group-hover:opacity-100 focus:opacity-100 sm:right-5 sm:h-12 sm:w-12"
+          className="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white opacity-100 shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-violet-600 sm:right-5 sm:top-1/2 sm:h-12 sm:w-12 sm:-translate-y-1/2 lg:opacity-0 lg:group-hover:opacity-100 focus:opacity-100"
         >
           <ChevronRight size={20} />
         </button>
