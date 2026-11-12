@@ -173,12 +173,12 @@ function ToolBadge({ tool, darkMode, onShow, onHide }) {
       onBlur={onHide}
       onClick={(event) => onShow(tool, event.currentTarget)}
       aria-label={`${tool.label} : maîtrise ${tool.level} %`}
-      className={`flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-full border font-bold text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-amber-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 ${
+      className={`w-full min-w-0 flex items-center gap-2 px-2.5 py-2 md:w-auto md:flex-shrink-0 md:gap-2.5 md:px-5 md:py-2.5 rounded-full border font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-amber-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 ${
         darkMode ? 'bg-[#11100d]/90 border-amber-400/20 text-slate-200' : 'bg-white border-amber-300/60 text-slate-700'
       }`}
     >
       <ToolIcon size={18} style={{ color: tool.color, flexShrink: 0 }} />
-      <span>{tool.label}</span>
+      <span className="min-w-0 truncate">{tool.label}</span>
     </button>
   );
 }
@@ -1363,23 +1363,24 @@ export default function Portfolio() {
             <div className="h-1.5 w-24 bg-gradient-to-r from-violet-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-violet-500/40" />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {services.map((service, idx) => {
               const ServiceIcon = service.icon;
               const indexFormatted = `0${idx + 1}`;
               return (
                 <div
                   key={idx}
-                  className={`p-8 rounded-3xl border ${borderColor} transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-600/15 group cursor-pointer relative overflow-hidden flex flex-col justify-between ${
+                  className={`p-4 sm:p-8 rounded-2xl sm:rounded-3xl border ${borderColor} transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-600/15 group cursor-pointer relative overflow-hidden flex flex-col justify-between ${
                     darkMode ? 'glass-card-dark' : 'glass-card-light'
                   }`}
                 >
                   <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-violet-500/10 via-transparent to-transparent pointer-events-none" />
 
                   <div>
-                    <div className="flex items-center justify-between mb-8">
-                      <div className="w-16 h-16 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl shadow-violet-600/25">
-                        <ServiceIcon size={28} className="text-white" />
+                    <div className="flex items-center justify-between mb-4 sm:mb-8">
+                      <div className="w-11 h-11 sm:w-16 sm:h-16 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-xl shadow-violet-600/25">
+                        <ServiceIcon size={22} className="text-white sm:hidden" />
+                        <ServiceIcon size={28} className="hidden text-white sm:block" />
                       </div>
                       <span className={`text-2xl font-black font-mono select-none ${
                         darkMode ? 'text-violet-500/30 group-hover:text-violet-400' : 'text-slate-300 group-hover:text-violet-600'
@@ -1388,16 +1389,16 @@ export default function Portfolio() {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-black mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all leading-tight">
+                    <h3 className="text-base sm:text-xl font-black mb-2 sm:mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all leading-tight">
                       {service.title}
                     </h3>
 
-                    <p className={`${textSecondary} text-sm leading-relaxed`}>
+                    <p className={`${textSecondary} text-xs sm:text-sm leading-relaxed`}>
                       {service.desc}
                     </p>
                   </div>
 
-                  <div className="mt-8 pt-4 border-t border-violet-500/15 flex items-center justify-between text-xs font-bold text-violet-400 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+                  <div className="mt-4 sm:mt-8 pt-3 sm:pt-4 border-t border-violet-500/15 flex items-center justify-between text-[10px] sm:text-xs font-bold text-violet-400 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                     <span>En savoir plus</span>
                     <span>→</span>
                   </div>
@@ -1427,13 +1428,13 @@ export default function Portfolio() {
             <div className="h-1.5 w-24 bg-gradient-to-r from-violet-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-violet-500/40 mt-4" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 gap-3 sm:gap-8 md:grid-cols-3">
             {formations.map((item, idx) => {
               const ItemIcon = item.icon;
               return (
                 <div
                   key={idx}
-                  className={`p-8 rounded-3xl border ${borderColor} transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-600/20 flex flex-col justify-between relative overflow-hidden group ${
+                  className={`p-4 sm:p-8 rounded-2xl sm:rounded-3xl border ${borderColor} transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-600/20 flex flex-col justify-between relative overflow-hidden group ${
                     darkMode ? 'glass-card-dark' : 'glass-card-light'
                   }`}
                 >
@@ -1441,11 +1442,12 @@ export default function Portfolio() {
 
                   <div>
                     {/* Badge top */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-violet-600/30 group-hover:scale-105 transition-transform">
-                        <ItemIcon size={26} />
+                    <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6">
+                      <div className="w-10 h-10 sm:w-14 sm:h-14 shrink-0 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-violet-600/30 group-hover:scale-105 transition-transform">
+                        <ItemIcon size={20} className="sm:hidden" />
+                        <ItemIcon size={26} className="hidden sm:block" />
                       </div>
-                      <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-violet-950/70 text-violet-300 border border-violet-500/30">
+                      <span className="min-w-0 px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-violet-950/70 text-violet-300 border border-violet-500/30">
                         {item.badge}
                       </span>
                     </div>
@@ -1453,13 +1455,13 @@ export default function Portfolio() {
                     <p className="text-xs font-bold text-violet-400 uppercase tracking-wider mb-1">
                       {item.school}
                     </p>
-                    <h3 className="text-xl font-black mb-3 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all">
+                    <h3 className="text-base sm:text-xl font-black mb-2 sm:mb-3 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all">
                       {item.degree}
                     </h3>
                     <p className="text-xs text-slate-400 font-medium mb-4 flex items-center gap-1.5">
                       <Globe size={13} className="text-violet-400" /> {item.location} • {item.period}
                     </p>
-                    <p className={`${textSecondary} text-sm leading-relaxed mb-6`}>
+                    <p className={`${textSecondary} text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6`}>
                       {item.desc}
                     </p>
                   </div>
@@ -1591,8 +1593,8 @@ export default function Portfolio() {
         </div>
 
         {/* Piste 1 — sens normal */}
-        <div className="overflow-hidden mb-4">
-          <div className="marquee-track flex gap-5">
+          <div className="mb-4">
+          <div className={`${isMobile ? 'grid grid-cols-2 gap-2.5' : 'marquee-track flex gap-5'}`}>
             {[
               { label: 'React', Icon: SiReact, color: '#61DAFB' },
               { label: 'Tailwind CSS', Icon: SiTailwindcss, color: '#38BDF8' },
@@ -1628,6 +1630,7 @@ export default function Portfolio() {
               { label: 'Laravel', Icon: SiLaravel, color: '#FF2D20' },
               { label: 'Canva', Icon: CanvaIcon, color: '#00C4CC' },
             ].map((tool, i) => {
+              if (isMobile && i >= 16) return null;
               const ToolIcon = tool.Icon;
               const toolWithLevel = { ...tool, Icon: ToolIcon, level: toolProficiency[tool.label] };
               return (
@@ -1644,8 +1647,8 @@ export default function Portfolio() {
         </div>
 
         {/* Piste 2 — sens inverse */}
-        <div className="overflow-hidden">
-          <div className="marquee-track-rev flex gap-5">
+        <div>
+          <div className={`${isMobile ? 'grid grid-cols-2 gap-2.5' : 'marquee-track-rev flex gap-5'}`}>
             {[
               { label: 'GitHub', Icon: SiGithub, color: '#ffffff' },
               { label: 'Node.js', Icon: SiNodedotjs, color: '#68A063' },
@@ -1673,6 +1676,7 @@ export default function Portfolio() {
               { label: 'After Effects', Icon: AfterEffectsIcon, color: '#9999FF' },
               { label: 'Git', Icon: SiGit, color: '#F05032' },
             ].map((tool, i) => {
+              if (isMobile && i >= 12) return null;
               const ToolIcon = tool.Icon;
               const toolWithLevel = { ...tool, Icon: ToolIcon, level: toolProficiency[tool.label] };
               return (
