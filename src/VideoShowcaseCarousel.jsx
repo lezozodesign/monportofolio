@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, ChevronLeft, ChevronRight, Film, VolumeX, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Play, Pause, ChevronLeft, ChevronRight, Film, VolumeX, Volume2, Sparkles, Image as ImageIcon } from 'lucide-react';
 
 const SHOWREEL_ITEMS = [
   {
@@ -103,18 +103,33 @@ const SHOWREEL_ITEMS = [
 export default function VideoShowcaseCarousel({ darkMode = true }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [mediaError, setMediaError] = useState(false);
+  const [playbackNeedsInteraction, setPlaybackNeedsInteraction] = useState(false);
   const videoRef = useRef(null);
   const currentItem = SHOWREEL_ITEMS[currentIndex];
 
+  const toggleSound = () => {
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+
+    const video = videoRef.current;
+    if (video) {
+      video.muted = nextMuted;
+      if (!nextMuted && isPlaying) {
+        video.play().catch(() => setMediaError(true));
+      }
+    }
+  };
+
   // Enchaîne les séquences du showreel sans interruption.
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || (currentItem.type === 'video' && !isMuted)) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % SHOWREEL_ITEMS.length);
     }, 6500);
     return () => clearInterval(interval);
-  }, [currentIndex, isPlaying]);
+  }, [currentIndex, currentItem.type, isMuted, isPlaying]);
 
   // Seule la vidéo actuellement affichée est chargée et lue.
   useEffect(() => {
@@ -126,12 +141,15 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
       return;
     }
 
-    video.muted = true;
-    video.play().catch(() => setMediaError(true));
-  }, [currentIndex, currentItem.type, isPlaying]);
+    video.muted = isMuted;
+    video.play()
+      .then(() => setPlaybackNeedsInteraction(false))
+      .catch(() => setPlaybackNeedsInteraction(true));
+  }, [currentIndex, currentItem.type, isMuted, isPlaying]);
 
   useEffect(() => {
     setMediaError(false);
+    setPlaybackNeedsInteraction(false);
   }, [currentIndex]);
 
   const handlePrev = () => {
@@ -163,15 +181,10 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
             <p className={`mt-3 max-w-xl text-sm leading-relaxed sm:text-base ${
               darkMode ? 'text-slate-400' : 'text-slate-600'
             }`}>
-              Un aperçu vivant de mes créations : clips vidéo muets, identités visuelles et créations graphiques.
+              Un aperçu vivant de mes créations : clips vidéo, identités visuelles et créations graphiques.
             </p>
           </div>
 
-          <div className={`flex w-fit items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-semibold ${
-            darkMode ? 'border-white/10 bg-white/5 text-slate-300' : 'border-slate-200 bg-white text-slate-600'
-          }`}>
-            <VolumeX size={15} className="text-violet-400" /> Vidéos toujours sans son
-          </div>
         </div>
 
         <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
@@ -183,13 +196,19 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
                   ref={videoRef}
                   src={currentItem.src}
                   poster={currentItem.poster}
-                  muted
+                  muted={isMuted}
                   playsInline
-                  loop
+                  loop={isMuted}
                   autoPlay={isPlaying}
+                  controls
                   preload="metadata"
                   onError={() => setMediaError(true)}
-                  aria-label={`Extrait vidéo muet : ${currentItem.title}`}
+                  onEnded={() => {
+                    if (isPlaying && !isMuted) {
+                      setCurrentIndex((prev) => (prev + 1) % SHOWREEL_ITEMS.length);
+                    }
+                  }}
+                  aria-label={`Extrait vidéo : ${currentItem.title}`}
                   className="showreel-media-enter absolute inset-0 h-full w-full object-cover"
                 />
               ) : (
@@ -220,6 +239,35 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
             )}
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-black/25" />
+            {currentItem.type === 'video' && playbackNeedsInteraction && (
+              <button
+                type="button"
+                onClick={() => {
+                  const video = videoRef.current;
+                  if (video) {
+                    video.muted = isMuted;
+                    video.play()
+                      .then(() => setPlaybackNeedsInteraction(false))
+                      .catch(() => setPlaybackNeedsInteraction(true));
+                  }
+                }}
+                className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400 px-5 py-3 font-semibold text-black shadow-xl transition hover:bg-amber-300"
+              >
+                Lancer la vidéo avec le son
+              </button>
+            )}
+            {currentItem.type === 'video' && (
+              <button
+                type="button"
+                onClick={toggleSound}
+                aria-label={isMuted ? 'Activer le son des vidéos' : 'Couper le son des vidéos'}
+                aria-pressed={!isMuted}
+                className="absolute right-3 top-14 z-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-2 text-xs font-semibold text-white shadow-xl backdrop-blur-md transition hover:bg-violet-600 sm:right-5 sm:top-5"
+              >
+                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                <span>{isMuted ? 'Activer le son' : 'Couper le son'}</span>
+              </button>
+            )}
             <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-md sm:left-5 sm:top-5 sm:px-3 sm:text-[10px] sm:tracking-[0.15em]">
               {currentItem.type === 'video' ? <Film size={13} /> : <ImageIcon size={13} />}
               {currentItem.type === 'video' ? 'Extrait vidéo' : 'Création visuelle'}

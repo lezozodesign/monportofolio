@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Moon, Sun, Menu, X, Mail, Code, Palette, Video, Layers,
   ExternalLink, ChevronLeft, ChevronRight, User, Zap, Globe, Search, Rocket, Sparkles,
   Award, GraduationCap, CheckCircle2, Calendar, BookOpen, Headphones, PenTool, Terminal, Upload,
-  Diamond
+  Diamond, Heart, Play, ShoppingBag
 } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa';
 import { Icon as Iconify } from '@iconify/react';
@@ -22,7 +22,6 @@ import ThreeLogo from './ThreeLogo';
 import Hover3DButton from './Hover3DButton';
 import AnimatedBadge from './AnimatedBadge';
 import ParallaxCard from './ParallaxCard';
-import VideoShowcaseCarousel from './VideoShowcaseCarousel';
 
 const CanvaIcon = ({ size = 24, ...props }) => (
   <Iconify icon={canvaIcon} width={size} height={size} {...props} />
@@ -174,8 +173,8 @@ function ToolBadge({ tool, darkMode, onShow, onHide }) {
       onBlur={onHide}
       onClick={(event) => onShow(tool, event.currentTarget)}
       aria-label={`${tool.label} : maîtrise ${tool.level} %`}
-      className={`flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-full border font-bold text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 ${
-        darkMode ? 'bg-slate-950/80 border-violet-500/20 text-slate-200' : 'bg-white border-slate-300 text-slate-700'
+      className={`flex-shrink-0 flex items-center gap-2.5 px-5 py-2.5 rounded-full border font-bold text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-amber-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 ${
+        darkMode ? 'bg-[#11100d]/90 border-amber-400/20 text-slate-200' : 'bg-white border-amber-300/60 text-slate-700'
       }`}
     >
       <ToolIcon size={18} style={{ color: tool.color, flexShrink: 0 }} />
@@ -195,32 +194,32 @@ function ToolHologram({ tool }) {
       className="pointer-events-none fixed z-[70] animate-fade-in"
       style={{ left: tool.position.x, top: tool.position.y }}
     >
-      <div className="relative flex w-48 items-center gap-3 overflow-hidden rounded-2xl border border-cyan-300/50 bg-[#071522]/95 px-3 py-2.5 shadow-[0_0_24px_rgba(34,211,238,0.24)] backdrop-blur-md">
+      <div className="relative flex w-48 items-center gap-3 overflow-hidden rounded-2xl border border-amber-300/50 bg-[#17140e]/95 px-3 py-2.5 shadow-[0_0_24px_rgba(245,183,56,0.22)] backdrop-blur-md">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-25"
           style={{
-            backgroundImage: 'linear-gradient(rgba(34,211,238,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,.14) 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(245,183,56,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(245,183,56,.12) 1px, transparent 1px)',
             backgroundSize: '14px 14px',
           }}
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-cyan-200 shadow-[0_0_12px_3px_rgba(34,211,238,0.65)] animate-pulse"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-amber-200 shadow-[0_0_12px_3px_rgba(245,183,56,0.55)] animate-pulse"
         />
         <ToolIcon className="relative z-10 shrink-0" size={22} style={{ color: tool.color }} aria-hidden="true" />
-        <span className="relative z-10 min-w-0 flex-1 truncate text-left text-xs font-bold text-cyan-50">
+        <span className="relative z-10 min-w-0 flex-1 truncate text-left text-xs font-bold text-amber-50">
           {tool.label}
         </span>
         <div className="relative z-10 h-10 w-10 shrink-0">
           <svg viewBox="0 0 44 44" className="h-full w-full -rotate-90" aria-hidden="true">
             <defs>
               <linearGradient id="hologram-level-gradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#67e8f9" />
-                <stop offset="100%" stopColor="#8b5cf6" />
+                <stop offset="0%" stopColor="#ffca52" />
+                <stop offset="100%" stopColor="#F5B738" />
               </linearGradient>
             </defs>
-            <circle cx="22" cy="22" r={radius} fill="none" stroke="rgba(34,211,238,0.2)" strokeWidth="3" />
+            <circle cx="22" cy="22" r={radius} fill="none" stroke="rgba(245,183,56,0.2)" strokeWidth="3" />
             <circle
               cx="22"
               cy="22"
@@ -231,10 +230,10 @@ function ToolHologram({ tool }) {
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={circumference * (1 - tool.level / 100)}
-              style={{ filter: 'drop-shadow(0 0 3px rgba(34,211,238,0.8))' }}
+              style={{ filter: 'drop-shadow(0 0 3px rgba(245,183,56,0.7))' }}
             />
           </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-cyan-100 drop-shadow-[0_0_6px_rgba(103,232,249,0.75)]">
+          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-amber-100 drop-shadow-[0_0_6px_rgba(245,183,56,0.65)]">
             {tool.level}%
           </span>
         </div>
@@ -245,15 +244,20 @@ function ToolHologram({ tool }) {
 }
 
 export default function Portfolio() {
-  const [pageLoading, setPageLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [videoNeedsInteraction, setVideoNeedsInteraction] = useState(false);
+  const selectedVideoRef = useRef(null);
   const [selectedTool, setSelectedTool] = useState(null);
   const [activeModalImgIndex, setActiveModalImgIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tous');
+  const [isMobile, setIsMobile] = useState(false);
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  const [hoveredProjectIndex, setHoveredProjectIndex] = useState(null);
+  const [favoritesOpen, setFavoritesOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -262,6 +266,15 @@ export default function Portfolio() {
   });
   const [lomeTime, setLomeTime] = useState('');
   const [selectedNeeds, setSelectedNeeds] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+
+  const toggleFavorite = (projectTitle) => {
+    setFavorites(prev =>
+      prev.includes(projectTitle)
+        ? prev.filter(title => title !== projectTitle)
+        : [...prev, projectTitle]
+    );
+  };
 
   const projectNeeds = [
     { id: 'vitrine', label: 'Site Vitrine', desc: 'Présentation & PME' },
@@ -272,13 +285,28 @@ export default function Portfolio() {
     { id: 'uiux', label: 'Design UI/UX', desc: 'Maquettes Figma' },
   ];
 
-  // Fin du loader d'introduction
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPageLoading(false);
-    }, 1100);
-    return () => clearTimeout(timer);
+    const mobileQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobileLayout = () => setIsMobile(mobileQuery.matches);
+    updateMobileLayout();
+    mobileQuery.addEventListener('change', updateMobileLayout);
+
+    return () => mobileQuery.removeEventListener('change', updateMobileLayout);
   }, []);
+
+  useEffect(() => {
+    setVideoNeedsInteraction(false);
+    if (!selectedImage || selectedImage.type !== 'video') return;
+
+    const video = selectedVideoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    video.volume = 1;
+    video.play()
+      .then(() => setVideoNeedsInteraction(false))
+      .catch(() => setVideoNeedsInteraction(true));
+  }, [selectedImage]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -304,7 +332,7 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    const sections = ['accueil', 'services', 'formations', 'projets', 'outils', 'contact'];
+    const sections = ['accueil', 'projets', 'services', 'formations', 'outils', 'contact'];
 
     const spyObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -476,169 +504,182 @@ export default function Portfolio() {
   const projects = [
     {
       category: 'Vidéo',
-      title: 'l\'Académie Digital Numérique (ADN)',
-      desc: 'Remise de diplôme à la première promotion de l\'Académie Digital Numérique (ADN)',
+      title: 'ADN Togo — Cérémonie de Remise des Diplômes',
+      desc: 'Captation événementielle, montage dynamique et habillage vidéo pour la remise des diplômes de la première promotion de l\'Académie Digitale Numérique. Un film rythmé et émouvant célébrant l\'excellence tech togolaise.',
       image: '/thumbnails/adn.jpg',
       video: 'ADN.mp4',
       type: 'video',
-      tags: ['ADN Togo', 'Remise de Diplôme', 'Direction Artistique']
+      tags: ['ADN Togo', 'Aftermovie', 'Motion Design', 'Direction Artistique']
     },
     {
       category: 'Vidéo',
-      title: 'YMCA Togo - Formation en Entrepreneuriat',
-      desc: 'FORMATION EN ENTREPRENEURIAT PAR LE YCMA Togo repportage sur la formation Yao Hervé Mawunyo AMEGNISSE',
+      title: 'YMCA Togo — Parcours Entrepreneur : Yao Hervé',
+      desc: 'Reportage immersif et portrait inspirant dans le cadre du programme d\'incubation entrepreneuriale de YMCA Togo. Suivi de Yao Hervé Mawunyo AMEGNISSE, avec prises de vue soignées et étalonnage cinématique.',
       image: '/thumbnails/ymca1.jpg',
       video: 'ymca1.mp4',
       type: 'video',
-      tags: ['After Effects', 'Animation', 'Direction Artistique']
+      tags: ['YMCA Togo', 'Reportage', 'Storytelling', 'Direction Artistique']
     },
     {
       category: 'Vidéo',
-      title: 'YMCA Togo - Formation en Entrepreneuriat',
-      desc: 'FORMATION EN ENTREPRENEURIAT PAR LE YCMA Togo repportage sur la formation Marceline Abla NOUKOUNOU',
+      title: 'YMCA Togo — Parcours Entrepreneur : Marceline Abla',
+      desc: 'Reportage et mise en lumière de l\'entrepreneuriat féminin avec Marceline Abla NOUKOUNOU. Storytelling dynamique, interviews poignantes et valorisation des initiatives locales accompagnées par YMCA Togo.',
       image: '/thumbnails/ymca2.jpg',
       video: 'ymca2.mp4',
       type: 'video',
-      tags: ['After Effects', 'Animation', 'Direction Artistique']
+      tags: ['YMCA Togo', 'Portrait Vidéo', 'Entrepreneuriat', 'Montage Rythmé']
     },
     {
       category: 'Visuel',
-      title: 'Faire-Part et Programme d\'Obsèques - Agbosu Mary',
-      desc: 'Conception graphique et édition complète (Couverture et Verso) pour l\'annonce et le programme des obsèques d\'AGBOSU Mary épouse ZOZO, dite «SCHOOLTOR» (60 ans).',
+      title: 'Mémorial Agbosu Mary — Livret & Faire-Part d\'Obsèques',
+      desc: 'Conception graphique et création éditoriale soignée (couverture et programme complet) pour les obsèques d\'AGBOSU Mary (« Schooltor »). Typographie sobre, harmonie florale et mise en page haute définition pour impression.',
       image: 'obseques-agbosu-mary-front.jpg',
+      thumbnail: '/thumbnails/projects/obseques-agbosu.webp',
       images: [
         'obseques-agbosu-mary-front.jpg',
         'obseques-agbosu-mary-back.jpg'
       ],
       type: 'image',
-      tags: ['Design Éditorial', 'Mise en page', 'Typographie', 'Print']
+      tags: ['Design Éditorial', 'Mise en Page', 'Typographie', 'Print HD']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ANNONCE PRIX',
-      desc: 'Création d\'un visuel pour annoncer la nouvelle grille tarifaire de Togoviande',
+      title: 'Togoviande — Affiche Promotionnelle & Grille Tarifaire',
+      desc: 'Création publicitaire percutante (format 10×14 cm) annonçant la nouvelle grille tarifaire de Togoviande. Hiérarchisation claire des prix, mise en valeur des produits et identité visuelle respectée.',
       image: 'FLYERS-TOGOVIANDE-10CM14CM.png',
+      thumbnail: '/thumbnails/projects/togoviande-flyer.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Affinity Designer', 'Affiche Publicitaire', 'Marketing Print', 'Branding']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ETIQUETTE BOEUF',
-      desc: 'Création d\'un visuel pour l\'étiquette de viande de bœuf de Togoviande',
+      title: 'Togoviande — Packaging & Étiquette Viande de Bœuf',
+      desc: 'Design de packaging alimentaire (8.57 × 12 cm) pour la viande de bœuf fraîche. Respect des normes d\'étiquetage, codes couleurs attractifs et valorisation premium du produit en rayon.',
       image: 'TOGOVIANDE-ETIQUETTE-BOEUF (8.57 x 12 cm).png',
+      thumbnail: '/thumbnails/projects/togoviande-boeuf.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Packaging Design', 'Étiquette Produit', 'Affinity Designer', 'Agroalimentaire']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ETIQUETTE CHEVRE',
-      desc: 'Création d\'un visuel pour l\'étiquette de viande de chèvre de Togoviande',
+      title: 'Togoviande — Packaging & Étiquette Viande de Chèvre',
+      desc: 'Conception graphique de l\'étiquette produit (8.57 × 12 cm) pour la viande de chèvre locale. Typographie soignée, pictogrammes explicatifs et design adapté aux exigences de la grande distribution.',
       image: 'TOGOVIANDE-ETIQUETTE-CHEVRE (8.57 x 12 cm).png',
+      thumbnail: '/thumbnails/projects/togoviande-chevre.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Packaging Design', 'Étiquette Produit', 'Affinity Designer', 'Agroalimentaire']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ETIQUETTE POULET GRAND FORMAT',
-      desc: 'Création d\'un visuel pour l\'étiquette de viande de poule de Togoviande',
+      title: 'Togoviande — Packaging Volaille (Grand Format)',
+      desc: 'Habillage d\'emballage grand format (8.57 × 12 cm) pour le poulet fermier local. Composition moderne mettant en avant l\'origine locale, la qualité nutritionnelle et la garantie de fraîcheur.',
       image: 'TOGOVIANDE-ETIQUETTE-POULE-GRAND-FORMAT (8.57 x 12 cm).png',
+      thumbnail: '/thumbnails/projects/togoviande-poule-grand.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Packaging Design', 'Packaging Volaille', 'Affinity Designer', 'Print']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ETIQUETTE POULET PETIT FORMAT',
-      desc: 'Création d\'un visuel pour l\'étiquette de viande de poule de Togoviande',
+      title: 'Togoviande — Packaging Volaille (Petit Format)',
+      desc: 'Déclinaison packaging harmonisée pour le conditionnement petit format (8.57 × 12 cm). Équilibre parfait entre contraintes d\'espace, mentions légales et impact visuel immédiat en boutique.',
       image: 'TOGOVIANDE-ETIQUETTE-POULE-PETIT-FORMAT (8.57 x 12 cm).png',
+      thumbnail: '/thumbnails/projects/togoviande-poule-petit.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Packaging Design', 'Déclinaison Gamme', 'Affinity Designer', 'Print']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ETIQUETTE POULET MAXI FORMAT',
-      desc: 'Création d\'un visuel pour l\'étiquette de viande de poule de Togoviande',
+      title: 'Togoviande — Packaging Volaille (Maxi Format)',
+      desc: 'Création graphique de la version maxi format (8.57 × 12 cm) de la gamme poulet. Palette chromatique énergique, lisibilité optimale et parfaite cohérence avec la charte de la marque.',
       image: 'TOGOVIANDE-ETIQUETTE-POULE-MAXI-FORMAT (8.57 x 12 cm).png',
+      thumbnail: '/thumbnails/projects/togoviande-poule-maxi.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Packaging Design', 'Packaging Volaille', 'Affinity Designer', 'Print']
     },
     {
       category: 'Visuel',
-      title: 'TOGOVIANDE VISUEL ETIQUETTE SAUCISSE DE BOEUF',
-      desc: 'Création d\'un visuel pour annoncer la nouvelle grille tarifaire de Togoviande',
+      title: 'Togoviande — Packaging & Étiquette Saucisse Pur Bœuf',
+      desc: 'Design d\'étiquette packaging (8.57 × 12 cm) pour la gamme charcuterie et saucisses pur bœuf de Togoviande. Esthétique appétissante, code couleur gourmand et clarté des informations de conservation.',
       image: 'TOGOVIANDE-ETIQUETTE-SAUCISSE-DE BOEUF (8.57 x 12 cm).png',
+      thumbnail: '/thumbnails/projects/togoviande-saucisse.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Logotype', 'Charte Graphique']
+      tags: ['Packaging Design', 'Charcuterie', 'Affinity Designer', 'Agroalimentaire']
     },
     {
       category: 'Visuel',
-      title: 'PRAYER MOMENT',
-      desc: 'Création d\'un visuel pour un événement de prière et de louange',
+      title: 'Prayer Moment — Affiche Événementielle Chrétienne',
+      desc: 'Conception de l\'affiche officielle pour un temps fort de prière et de louange chrétienne. Jeux de lumières célestes, typographie inspirante et composition percutante pour affichage et réseaux sociaux.',
       image: 'Visuel évènementielle chrétienne.png',
+      thumbnail: '/thumbnails/projects/prayer-moment.webp',
       type: 'image',
-      tags: ['Branding', 'Logotype', 'Charte Graphique']
+      tags: ['Affiche Événement', 'Direction Artistique', 'Communication Visuelle', 'Réseaux Sociaux']
     },
     {
       category: 'Vidéo',
-      title: 'Vidéo Promotionnelle pour le centre de formation Sichem',
-      desc: 'Vidéo vlog promotionnelle qui parle d\'une école qui forme les jeunes à l\'élevage et l\'agriculture localisée à Zéglé (Togo)',
+      title: 'Centre Agro-Écologique Sichem (Zéglé)',
+      desc: 'Vidéo promotionnelle et documentaire immersif au cœur du centre agro-pastoral Sichem à Zéglé. Présentation des formations agricoles durables et de l\'autonomisation économique des jeunes au Togo.',
       image: '/thumbnails/sichem.jpg',
       video: 'sichem.mp4',
       type: 'video',
-      tags: ['DaVinci Resolve', 'Animation', 'Direction Artistique']
+      tags: ['DaVinci Resolve', 'Reportage Agricole', 'Étalonnage', 'Vlog Cinématique']
     },
     {
       category: 'Vidéo',
-      title: 'Vidéo Promotionnelle pour Chronos228',
-      desc: 'Vidéo promotionnelle pour une cave à vin nommée Chronos228 à Lomé (Togo)',
+      title: 'Chronos228 — Spot Promotionnel Cave & Lounge',
+      desc: 'Spot publicitaire rythmé et percutant pour la cave à vin premium & lounge Chronos228 à Lomé. Montage cut, ambiance nocturne feutrée, transitions stylisées et mise en valeur des références exclusives.',
       image: '/thumbnails/chronos.jpg',
       video: 'chronos.mp4',
       type: 'video',
-      tags: ['After Effects', 'Animation', 'Direction Artistique']
+      tags: ['After Effects', 'Publicité Spot', 'Montage Punchy', 'Lomé']
     },
     {
       category: 'Vidéo',
-      title: 'Motion pour Fic-rc Togo',
-      desc: 'Animations pour un projet de fic-rc togo dont j\'ai été appelé à réaliser la vidéo',
+      title: 'Ferme Intégrée Circulaire (FIC-RC Togo)',
+      desc: 'Production audiovisuelle et motion design institutionnel pour illustrer les principes d\'économie circulaire et d\'agriculture régénératrice de la FIC-RC. Un message écologique fort et percutant.',
       image: '/thumbnails/fic-rc.jpg',
       video: 'fic-rc.mp4',
       type: 'video',
-      tags: ['Capcut', 'Canva', 'Animation']
+      tags: ['Motion Design', 'Animation Graphique', 'Storytelling Écologique', 'Direction Artistique']
     },
     {
-      category: 'logo et brand board',
-      title: 'DAYAL ENTREPRISE',
-      desc: 'Création d\'une brand board et d\'une identité visuelle complète pour DAYAL ENTREPRISE.',
+      category: 'Branding & Logo',
+      title: 'DAYAL Entreprise — Identité Visuelle & Brand Board',
+      desc: 'Conception complète de l\'identité visuelle pour DAYAL Entreprise : création du logotype, système chromatique, typographies institutionnelles et élaboration du Brand Board pour tous supports.',
       image: 'Dayal.png',
+      thumbnail: '/thumbnails/projects/dayal.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Canva', 'Charte Graphique']
+      tags: ['Brand Board', 'Logotype', 'Charte Graphique', 'Identité de Marque']
     },
     {
-      category: 'logo et brand board',
-      title: 'AGRILIFE',
-      desc: 'Création d\'une brand board et d\'une identité visuelle complète pour AGRILIFE.',
+      category: 'Branding & Logo',
+      title: 'AGRILIFE — Identité de Marque & Éco-Branding',
+      desc: 'Univers de marque complet et brand board pour AGRILIFE. Une identité visuelle fraîche et organique inspirée de la terre et de l\'innovation agricole durable, avec logo moderne et déclinaisons.',
       image: 'agrilife.png',
+      thumbnail: '/thumbnails/projects/agrilife.webp',
       type: 'image',
-      tags: ['Affinity Designer', 'Canva', 'Charte Graphique']
+      tags: ['Éco-Branding', 'Logotype', 'Affinity Designer', 'Identité Visuelle']
     },
     {
-      category: 'logo et brand board',
-      title: 'PADNOVE Startup',
-      desc: 'Création d\'une brand board et d\'une identité visuelle complète pour la startup PADNOVE.',
+      category: 'Branding & Logo',
+      title: 'PADNOVE Startup — Branding & Univers Visuel',
+      desc: 'Identité de marque moderne et percutante pensée pour la startup innovante PADNOVE. Logotype distinctif, guide des styles, palettes audacieuses et supports digitaux à fort impact.',
       image: 'PADNOVE.png',
+      thumbnail: '/thumbnails/projects/padnove.webp',
       type: 'image',
-      tags: ['Branding', 'Logotype', 'Charte Graphique']
+      tags: ['Startup Branding', 'Brand Board', 'Design Moderne', 'Charte Graphique']
     },
     {
-      category: 'logo et brand board',
-      title: 'AGRIPRO',
-      desc: 'Création d\'une brand board et d\'une identité visuelle complète pour AGRI.',
+      category: 'Branding & Logo',
+      title: 'AGRIPRO — Univers Visuel & Charte Graphique',
+      desc: 'Création d\'une identité visuelle solide et crédible pour AGRIPRO. Logotype mémorable, typographies professionnelles et charte complète adaptée aux partenariats B2B et à l\'agro-industrie africaine.',
       image: 'AGRIPRO.png',
+      thumbnail: '/thumbnails/projects/agripro.webp',
       type: 'image',
-      tags: ['Branding', 'Logotype', 'Charte Graphique']
+      tags: ['Branding B2B', 'Logotype', 'Agro-Industrie', 'Brand Board']
     },
   ];
 
-  const categories = ['Tous', 'Visuel', 'Vidéo', 'logo et brand board'];
+  const categories = ['Tous', 'Visuel', 'Vidéo', 'Branding & Logo'];
 
   const filteredProjects = projects.filter(project => {
     const matchesCategory = selectedCategory === 'Tous' || project.category === selectedCategory;
@@ -647,9 +688,18 @@ export default function Portfolio() {
       project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
+  const favoriteProjects = projects.filter(project => favorites.includes(project.title));
+  const favoritesMessage = `Bonjour Lezozo ! Je souhaite discuter de ces projets :\n\n${favoriteProjects
+    .map(project => `- ${project.title}`)
+    .join('\n')}\n\nPouvez-vous me donner plus d'informations ?`;
+  const favoritesSubject = `Discussion sur ${favoriteProjects.length} projet${favoriteProjects.length > 1 ? 's' : ''} de votre portfolio`;
+  const initialProjectCount = isMobile ? 6 : 8;
+  const visibleProjects = showAllProjects
+    ? filteredProjects
+    : filteredProjects.slice(0, initialProjectCount);
 
   // Palette Violet Doux (feutrée et reposante pour les yeux)
-  const bgClass = darkMode ? 'bg-[#0B0D17]' : 'bg-slate-50';
+  const bgClass = darkMode ? 'bg-[#08080A]' : 'bg-slate-50';
   const textClass = darkMode ? 'text-slate-100' : 'text-slate-900';
   const textSecondary = darkMode ? 'text-slate-300' : 'text-slate-600';
   const cardBg = darkMode ? 'bg-[#121526]' : 'bg-white';
@@ -661,58 +711,55 @@ export default function Portfolio() {
   return (
     <div className={`portfolio-root min-h-screen ${bgClass} ${textClass} transition-colors duration-500 scroll-smooth relative`}>
 
-      {/* ========== ANIMATION SIGNATURE : PAGE LOADER ========== */}
-      <div
-        id="page-loader"
-        className={`page-loader ${!pageLoading ? 'is-hidden' : ''}`}
-        role="status"
-        aria-live="polite"
-        aria-label="Chargement du portfolio Lezozo"
-      >
-        <div className="loader-content">
-          <div className="loader-logo-ring">
-            <img src="logo.png" alt="Logo Lezozo" className="loader-logo" />
-          </div>
-          <p className="loader-name text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-purple-300 to-indigo-300">
-            LEZOZO DESIGN
-          </p>
-          <p className="loader-caption">
-            Chargement de l'univers créatif<span className="loader-dots" aria-hidden="true">...</span>
-          </p>
-          <div className="loader-track" aria-hidden="true">
-            <span></span>
-          </div>
-        </div>
-      </div>
-
       <div className={`ambient-background ${darkMode ? 'ambient-background-dark' : 'ambient-background-light'}`} aria-hidden="true" />
 
       {/* Modal image / vidéo agrandie */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 animate-fade-in backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex min-h-full items-start justify-center overflow-y-auto bg-black/90 p-4 backdrop-blur-sm animate-fade-in sm:items-center"
           onClick={() => setSelectedImage(null)}
         >
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-md z-20 text-white border border-white/20"
+            className="fixed right-4 top-4 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all duration-300 hover:bg-white/20 sm:right-6 sm:top-6"
+            aria-label="Fermer le projet"
           >
             <X size={26} />
           </button>
 
-          <div className="max-w-5xl max-h-[90vh] w-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+          <div className="my-auto flex w-full max-w-5xl flex-col items-center py-4" onClick={(e) => e.stopPropagation()}>
             {selectedImage.type === 'video' ? (
-              <video
-                src={selectedImage.video}
-                poster={selectedImage.image}
-                autoPlay
-                muted
-                playsInline
-                preload="metadata"
-                className="w-full h-full max-h-[70vh] object-contain rounded-2xl shadow-2xl border border-violet-500/20"
-              >
-                Votre navigateur ne supporte pas la lecture de vidéos.
-              </video>
+              <div className="relative w-full">
+                <video
+                  ref={selectedVideoRef}
+                  src={selectedImage.video}
+                  poster={selectedImage.image}
+                  autoPlay
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full max-h-[70vh] rounded-2xl border border-violet-500/20 object-contain shadow-2xl"
+                >
+                  Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+                {videoNeedsInteraction && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const video = selectedVideoRef.current;
+                      if (!video) return;
+                      video.muted = false;
+                      video.volume = 1;
+                      video.play()
+                        .then(() => setVideoNeedsInteraction(false))
+                        .catch(() => setVideoNeedsInteraction(true));
+                    }}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400 px-5 py-3 font-semibold text-black shadow-xl transition hover:bg-amber-300"
+                  >
+                    Lancer la vidéo avec le son
+                  </button>
+                )}
+              </div>
             ) : (
               <div className="relative w-full flex items-center justify-center">
                 <img
@@ -756,8 +803,8 @@ export default function Portfolio() {
                     onClick={() => setActiveModalImgIndex(idx)}
                     className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all border ${
                       activeModalImgIndex === idx
-                        ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white border-violet-400 shadow-lg shadow-violet-600/30'
-                        : 'bg-slate-900/80 text-slate-400 border-slate-700 hover:text-white'
+                        ? 'bg-amber-400 text-black border-amber-300 shadow-lg shadow-amber-400/30'
+                        : 'bg-zinc-900 text-zinc-400 border-zinc-700 hover:text-white'
                     }`}
                   >
                     {idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)'}
@@ -766,9 +813,43 @@ export default function Portfolio() {
               </div>
             )}
 
-            <div className="mt-4 text-center">
-              <h3 className="text-2xl font-bold text-white mb-2">{selectedImage.title}</h3>
-              <p className="text-slate-300 max-w-3xl text-sm sm:text-base leading-relaxed">{selectedImage.desc}</p>
+            <div className="mt-5 w-full max-w-3xl bg-zinc-950/90 border border-zinc-800 rounded-2xl p-5 sm:p-6 text-left">
+              <div className="flex items-center justify-between gap-3 mb-2">
+                <span className="font-bebas text-sm sm:text-base text-amber-400 uppercase tracking-widest">
+                  {selectedImage.category}
+                </span>
+                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                  {selectedImage.type === 'video' ? 'Production Vidéo' : 'Design Graphique'}
+                </span>
+              </div>
+
+              <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-wide uppercase leading-none mb-3">
+                {selectedImage.title}
+              </h3>
+
+              <p className="font-mono-desc text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4">
+                {selectedImage.desc}
+              </p>
+
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-zinc-800">
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedImage.tags.map((tag, tIdx) => (
+                    <span key={tIdx} className="font-mono-desc text-[11px] px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={`https://wa.me/22899513224?text=${encodeURIComponent(`Bonjour Lezozo ! 👋 J'ai vu votre projet "${selectedImage.title}" sur votre portfolio et je souhaite discuter d'une réalisation similaire.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-bebas text-sm tracking-wider flex items-center gap-1.5 transition-transform hover:scale-105 active:scale-95 shadow-md shadow-amber-400/20"
+                >
+                  <span>COMMANDER UN PROJET SIMILAIRE</span>
+                  <ExternalLink size={14} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -785,22 +866,14 @@ export default function Portfolio() {
               alt="Lezozo Logo"
               className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(139,92,246,0.4)]"
             />
-            <div className="flex flex-col">
-              <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-purple-300 to-indigo-300 tracking-wider leading-none">
-                LEZOZO
-              </span>
-              <span className="text-[9px] font-black uppercase tracking-[0.28em] text-violet-400 mt-0.5">
-                DESIGN
-              </span>
-            </div>
           </div>
 
           <div className="hidden md:flex items-center gap-1.5 lg:gap-2">
             {[
               { id: 'accueil', label: 'Accueil', icon: User },
+              { id: 'projets', label: 'Projets', icon: Layers },
               { id: 'services', label: 'Services', icon: Code },
               { id: 'formations', label: 'Formations', icon: GraduationCap },
-              { id: 'projets', label: 'Projets', icon: Layers },
               { id: 'outils', label: 'Outils', icon: Zap },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map((item) => {
@@ -855,9 +928,9 @@ export default function Portfolio() {
           <div className="flex flex-col items-center gap-3 w-full max-w-xs">
             {[
               { id: 'accueil', label: 'Accueil', icon: User },
+              { id: 'projets', label: 'Projets', icon: Layers },
               { id: 'services', label: 'Services', icon: Code },
               { id: 'formations', label: 'Formations', icon: GraduationCap },
-              { id: 'projets', label: 'Projets', icon: Layers },
               { id: 'outils', label: 'Outils', icon: Zap },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map((item) => {
@@ -1073,7 +1146,209 @@ export default function Portfolio() {
         </div>
       </div>
 
-      <VideoShowcaseCarousel darkMode={darkMode} />
+
+      {/* ========== PROJECTS SECTION (STYLE SMARTPHONE 5 COLONNES PC / 2 COLONNES MOBILE) ========== */}
+      <section id="projets" className={`py-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden ${darkMode ? 'bg-[#08080A]' : 'bg-slate-50'} border-b ${darkMode ? 'border-zinc-800/80' : 'border-slate-200'} transition-colors duration-500`}>
+
+        <div className="max-w-[1520px] mx-auto reveal-on-scroll">
+          <div className="text-center relative max-w-4xl mx-auto mb-14 space-y-3">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#F5B738]/15 border border-[#F5B738]/30 text-[#F5B738] font-bebas text-sm sm:text-base tracking-widest uppercase">
+              Portfolio &amp; Réalisations
+            </span>
+            <h2 className={`font-bebas text-5xl sm:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r ${
+              darkMode ? 'from-white via-zinc-100 to-amber-200' : 'from-slate-900 via-zinc-800 to-amber-700'
+            } tracking-wide uppercase leading-none`}>
+              Projets Signés Lezozo
+            </h2>
+            <p className="font-mono-desc text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+              Format smartphone vertical, direction artistique percutante et créations graphiques sur mesure.
+            </p>
+          </div>
+
+          <div className="mb-10 space-y-5">
+            <div className="relative max-w-xl mx-auto">
+              <input
+                type="text"
+                placeholder="Rechercher un projet, tag ou mot-clé..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowAllProjects(false);
+                  setHoveredProjectIndex(null);
+                }}
+                className={`w-full px-5 py-3.5 rounded-full ${
+                  darkMode ? 'bg-zinc-900/90 text-white placeholder-zinc-500 border-zinc-800 focus:border-amber-400' : 'bg-white text-slate-900 border-slate-300 focus:border-amber-500'
+                } border-2 focus:outline-none transition-all duration-300 pl-12 text-sm sm:text-base shadow-xl backdrop-blur-md`}
+              />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-amber-400" size={20} />
+              {searchQuery && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setShowAllProjects(false);
+                    setHoveredProjectIndex(null);
+                  }}
+                  className="absolute right-3.5 top-1/2 transform -translate-y-1/2 p-1.5 hover:bg-zinc-800 rounded-full text-zinc-400 hover:text-white transition-all"
+                >
+                  <X size={16} />
+                </button>
+              )}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+              {categories.map((category) => {
+                const isSelected = selectedCategory === category;
+                return (
+                  <button
+                    key={category}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setShowAllProjects(false);
+                      setHoveredProjectIndex(null);
+                    }}
+                    className={`px-4 sm:px-5 py-2 rounded-full text-xs uppercase tracking-wider transition-all duration-200 ${
+                      isSelected
+                        ? 'bg-white text-black font-black shadow-lg shadow-white/10'
+                        : `${darkMode ? 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700' : 'bg-white text-slate-700 hover:text-black border border-slate-300'}`
+                    }`}
+                  >
+                    {category === 'Tous' ? 'Toutes les réalisations' : category}
+                  </button>
+                );
+              })}
+            </div>
+
+            <p className="text-center font-bebas text-sm sm:text-base text-zinc-400 tracking-wider">
+              {filteredProjects.length} PROJET{filteredProjects.length > 1 ? 'S' : ''} DISPONIBLE{filteredProjects.length > 1 ? 'S' : ''}
+            </p>
+          </div>
+
+          {filteredProjects.length === 0 ? (
+            <div className={`rounded-3xl p-12 text-center border-2 border-dashed ${borderColor} ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}>
+              <Search size={56} className="mx-auto mb-4 text-amber-400 opacity-60" />
+              <h3 className="font-bebas text-3xl mb-2 text-white">Aucun projet trouvé</h3>
+              <p className="font-mono-desc text-xs text-zinc-400">
+                Essayez de modifier votre recherche ou sélectionnez une autre catégorie
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-5 lg:gap-6">
+              {visibleProjects.map((project, idx) => {
+                const isFav = favorites.includes(project.title);
+                const isVideoPreview = hoveredProjectIndex === idx && project.type === 'video';
+                return (
+                  <article
+                    key={idx}
+                    onMouseEnter={() => {
+                      if (project.type === 'video') setHoveredProjectIndex(idx);
+                    }}
+                    onMouseLeave={() => setHoveredProjectIndex(null)}
+                    onClick={() => {
+                      setHoveredProjectIndex(null);
+                      setSelectedImage(project);
+                      setActiveModalImgIndex(0);
+                    }}
+                    className="group cursor-pointer flex flex-col select-none"
+                  >
+                    {/* Carte vidéo vertical smartphone (ratio 9:13.8) */}
+                    <div className="relative w-full aspect-[9/13.8] rounded-2xl sm:rounded-3xl overflow-hidden bg-zinc-950 border border-zinc-800/90 group-hover:border-[#F5B738]/80 transition-all duration-300 shadow-xl group-hover:shadow-2xl group-hover:shadow-amber-500/10 group-hover:-translate-y-1.5">
+                      <img
+                        src={project.thumbnail || project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {isVideoPreview && (
+                        <video
+                          src={project.video.startsWith('/') ? project.video : `/${project.video}`}
+                          poster={project.thumbnail || project.image}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="none"
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                      )}
+                      <div className={`absolute inset-0 bg-gradient-to-t ${
+                        isVideoPreview ? 'from-black/65 via-black/10 to-black/25' : 'from-black/95 via-black/20 to-black/35'
+                      }`} />
+
+                      {/* Bouton Favori rond en haut à gauche */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(project.title);
+                        }}
+                        aria-label={isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                        aria-pressed={isFav}
+                        className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/60 bg-black/20 text-white backdrop-blur-md flex items-center justify-center shadow-md hover:bg-black/40 hover:scale-110 active:scale-90 transition-transform z-10"
+                        title={isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                      >
+                        <Heart
+                          size={13}
+                          className={isFav ? 'fill-red-600 text-red-600' : 'fill-black text-black'}
+                        />
+                      </button>
+
+                      {/* Badge NOUVEAU / CATÉGORIE doré en haut à droite */}
+                      <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 px-2 sm:px-2.5 py-0.5 rounded-full bg-[#F5B738] text-black font-bebas text-[10px] sm:text-xs tracking-wider shadow-md z-10 uppercase">
+                        {project.type === 'video' ? 'VIDÉO' : project.category === 'Branding & Logo' ? 'BRANDING' : 'VISUEL'}
+                      </div>
+
+                      {/* Typo centrale incrustée */}
+                      <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 text-center pointer-events-none px-1">
+                        <p className="font-bebas text-lg sm:text-2xl text-white/95 font-extrabold tracking-wider leading-none drop-shadow-lg uppercase line-clamp-2">
+                          {project.title.split('—')[0].trim()}
+                        </p>
+                      </div>
+
+                      {/* Bouton Play ou Zoom blanc central */}
+                      <div className="project-card-action absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-[#F5B738] transition-all duration-300">
+                          {project.type === 'video' ? (
+                            <Play size={18} className="fill-black ml-0.5" />
+                          ) : (
+                            <ExternalLink size={18} className="text-black" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Titre & catégorie sous la carte */}
+                    <div className="mt-2.5 px-0.5">
+                      <h3 className="text-xs sm:text-sm font-bold text-zinc-100 group-hover:text-[#F5B738] transition-colors line-clamp-1 leading-tight">
+                        {project.title}
+                      </h3>
+                      <p className="font-mono-desc text-[10px] sm:text-[11px] text-zinc-400 line-clamp-1 mt-0.5">
+                        {project.tags.slice(0, 2).join(' • ')}
+                      </p>
+                    </div>
+                  </article>
+                );
+              })}
+              </div>
+              {filteredProjects.length > initialProjectCount && (
+                <div className="mt-10 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllProjects((showAll) => !showAll)}
+                    className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-400/10 px-6 py-3 font-bebas text-base tracking-wider text-amber-300 transition-all hover:bg-amber-400 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+                    aria-expanded={showAllProjects}
+                  >
+                    {showAllProjects ? 'Voir moins' : `Voir plus (${filteredProjects.length - initialProjectCount})`}
+                    <ChevronRight className={showAllProjects ? '-rotate-90' : 'rotate-90'} size={18} />
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </section>
+
 
       {/* ========== SERVICES SECTION ========== */}
       <section id="services" className="py-24 px-6 relative overflow-hidden">
@@ -1308,9 +1583,9 @@ export default function Portfolio() {
       </section>
 
       {/* ========== DOUBLE MARQUEE — OUTILS & STACK ========== */}
-      <div id="outils" className={`overflow-hidden py-10 relative scroll-mt-24 ${darkMode ? 'bg-[#0E1120]' : 'bg-slate-100'} border-t border-b ${darkMode ? 'border-violet-500/15' : 'border-slate-200'}`}>
+      <div id="outils" className={`overflow-hidden py-10 relative scroll-mt-24 ${darkMode ? 'bg-[#11100d]' : 'bg-[#fffdf8]'} border-t border-b ${darkMode ? 'border-amber-400/15' : 'border-amber-300/50'}`}>
         <div className="text-center mb-6">
-          <span className="text-xs font-black uppercase tracking-[0.22em] text-violet-400">
+          <span className="text-xs font-black uppercase tracking-[0.22em] text-amber-400">
             Stack & Outils Maîtrisés
           </span>
         </div>
@@ -1413,175 +1688,6 @@ export default function Portfolio() {
           </div>
         </div>
       </div>
-
-
-      {/* ========== PROJECTS SECTION ========== */}
-      <section id="projets" className={`py-24 px-6 relative overflow-hidden ${darkMode ? 'bg-[#0B0D17]' : 'bg-slate-50'} border-b ${darkMode ? 'border-violet-500/15' : 'border-slate-200'} transition-colors duration-500`}>
-
-        <div className="max-w-7xl mx-auto reveal-on-scroll">
-          <div className="text-center relative max-w-4xl mx-auto mb-16">
-            <span className="text-xs font-black uppercase tracking-[0.25em] text-violet-400 block mb-3 animate-pulse">
-              Portfolio &amp; Réalisations
-            </span>
-            <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r ${
-              darkMode ? 'from-slate-100 via-violet-200 to-indigo-300' : 'from-slate-900 via-violet-800 to-indigo-800'
-            } mb-6 tracking-tight leading-none uppercase`}>
-              Projets Signés Lezozo
-            </h2>
-            <div className="h-1.5 w-24 bg-gradient-to-r from-violet-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-violet-500/40" />
-          </div>
-
-          <div className="mb-12 space-y-4">
-            <div className="relative max-w-2xl mx-auto">
-              <input
-                type="text"
-                placeholder="Rechercher un projet, tag ou mot-clé..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full px-6 py-4 rounded-full ${
-                  darkMode ? 'bg-slate-900/70 text-white placeholder-slate-400' : 'bg-white text-slate-900'
-                } border-2 ${
-                  darkMode ? 'border-violet-500/25 focus:border-violet-400' : 'border-slate-300 focus:border-violet-500'
-                } focus:outline-none focus:ring-4 focus:ring-violet-500/20 transition-all duration-300 pl-14 text-base sm:text-lg shadow-lg backdrop-blur-md`}
-              />
-              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-violet-400" size={22} />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 hover:bg-violet-500 hover:text-white rounded-full transition-all duration-300"
-                >
-                  <X size={18} />
-                </button>
-              )}
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105 ${
-                    selectedCategory === category
-                      ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/30 border border-violet-400/40'
-                      : `${darkMode ? 'bg-slate-900/60 text-slate-300 hover:text-violet-300 border border-violet-500/20' : 'bg-white text-slate-700 hover:text-violet-600 border border-slate-300'}`
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            <p className={`text-center ${textSecondary} text-sm`}>
-              {filteredProjects.length} projet{filteredProjects.length !== 1 ? 's' : ''} trouvé{filteredProjects.length !== 1 ? 's' : ''}
-            </p>
-          </div>
-
-          {filteredProjects.length === 0 ? (
-            <div className={`rounded-3xl p-12 text-center border-2 border-dashed ${borderColor} ${darkMode ? 'glass-card-dark' : 'glass-card-light'}`}>
-              <Search size={56} className="mx-auto mb-4 text-violet-400 opacity-60" />
-              <h3 className="text-2xl font-bold mb-2">Aucun projet trouvé</h3>
-              <p className={textSecondary}>
-                Essayez de modifier votre recherche ou sélectionnez une autre catégorie
-              </p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    setSelectedImage(project);
-                    setActiveModalImgIndex(0);
-                  }}
-                  className={`rounded-3xl overflow-hidden border ${borderColor} transition-all duration-500 group cursor-pointer shadow-xl hover:shadow-2xl hover:shadow-violet-600/20 transform hover:-translate-y-1.5 flex flex-col justify-between ${
-                    darkMode ? 'glass-card-dark' : 'glass-card-light'
-                  }`}
-                >
-                  <div className="h-64 relative overflow-hidden bg-black flex items-center justify-center">
-                    {project.type === 'video' ? (
-                      <>
-                        <img
-                          src={project.image}
-                          alt={`Aperçu de la vidéo : ${project.title}`}
-                          loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                        <div className="absolute top-3 right-3 bg-violet-600 text-white px-3 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-lg">
-                          <Video size={13} /> VIDÉO
-                        </div>
-                      </>
-                    ) : (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    )}
-
-                    <div className="absolute top-3 left-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-3 py-1 rounded-lg text-xs font-black tracking-wide shadow-lg uppercase">
-                      {project.category}
-                    </div>
-
-                    <div className="absolute inset-0 bg-black/40 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                      <div className="flex flex-col items-center gap-2 transform translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0 transition-transform duration-300">
-                        {project.type === 'video' ? (
-                          <>
-                            <div className="w-14 h-14 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-xl">
-                              <Video size={28} />
-                            </div>
-                            <span className="text-white font-black text-sm drop-shadow-md">Lire la vidéo</span>
-                          </>
-                        ) : (
-                          <>
-                            <div className="w-14 h-14 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-xl">
-                              <ExternalLink size={26} />
-                            </div>
-                            <span className="text-white font-black text-sm drop-shadow-md">Agrandir le visuel</span>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-6 flex flex-col flex-1 justify-between">
-                    <div>
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {project.tags.map((tag, tagIdx) => (
-                          <span
-                            key={tagIdx}
-                            className={`px-2.5 py-1 text-xs font-bold rounded-full border ${
-                              darkMode ? 'bg-violet-950/70 text-violet-300 border-violet-700/40' : 'bg-violet-50 text-violet-700 border-violet-200'
-                            }`}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <h3 className="text-xl font-black mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all">
-                        {project.title}
-                      </h3>
-
-                      <p className={`${textSecondary} text-sm leading-relaxed mb-4`}>
-                        {project.desc}
-                      </p>
-                    </div>
-
-                    <div className="pt-3 border-t border-violet-500/15 flex items-center justify-between">
-                      <span className="text-xs font-bold text-violet-400 uppercase tracking-wider">
-                        {project.category}
-                      </span>
-                      <span className="text-xs font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400 flex items-center gap-1 group-hover:underline">
-                        Découvrir <ChevronRight size={14} className="text-violet-400" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* ========== CONTACT SECTION ========== */}
       <section id="contact" className={`py-24 px-6 relative overflow-hidden ${darkMode ? 'bg-[#0E1120]' : 'bg-slate-100/70'} border-t ${darkMode ? 'border-violet-500/20' : 'border-slate-200'} transition-colors duration-500`}>
@@ -1741,7 +1847,7 @@ export default function Portfolio() {
                   type="submit"
                   className="w-full mt-6 px-8 py-4 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 rounded-xl font-black text-lg shadow-xl shadow-violet-700/30 hover:shadow-violet-700/50 transform hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 text-white border border-violet-400/20"
                 >
-                  <Mail size={22} /> Envoyer la Proposition
+                  <Mail size={22} /> Envoyer mon message
                 </button>
               </div>
             </form>
@@ -1850,9 +1956,6 @@ export default function Portfolio() {
               alt="Lezozo Logo"
               className="h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(139,92,246,0.3)]"
             />
-            <span className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-300 tracking-wider">
-              LEZOZO DESIGN
-            </span>
           </div>
           <p className="text-slate-400 text-sm">
             © 2025-2026 LezozoDesign. Lomé, Togo. Propulsé par la créativité et l'innovation.
@@ -1861,6 +1964,78 @@ export default function Portfolio() {
       </footer>
 
       {/* Bouton Flottant WhatsApp (FAB) */}
+      {favoritesOpen && (
+        <aside
+          className="fixed bottom-24 left-4 z-40 w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-amber-300/25 bg-[#11100d]/70 p-4 text-slate-100 shadow-2xl shadow-black/40 backdrop-blur-xl"
+          aria-label="Panier de favoris"
+        >
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-bebas text-xl tracking-wider text-amber-300">
+              Mes projets favoris ({favoriteProjects.length})
+            </h2>
+            <button
+              type="button"
+              onClick={() => setFavoritesOpen(false)}
+              className="rounded-full p-1 text-slate-300 transition hover:bg-white/10 hover:text-white"
+              aria-label="Fermer le panier de favoris"
+            >
+              <X size={18} />
+            </button>
+          </div>
+          {favoriteProjects.length === 0 ? (
+            <p className="py-3 text-sm text-slate-300">
+              Appuie sur le cœur d’un projet pour l’ajouter ici.
+            </p>
+          ) : (
+            <>
+              <ul className="mb-4 max-h-52 space-y-2 overflow-y-auto">
+                {favoriteProjects.map(project => (
+                  <li key={project.title} className="flex items-start justify-between gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                    <span className="text-sm leading-snug">{project.title}</span>
+                    <button
+                      type="button"
+                      onClick={() => toggleFavorite(project.title)}
+                      className="shrink-0 rounded-full p-1 text-slate-400 transition hover:bg-white/10 hover:text-rose-300"
+                      aria-label={`Retirer ${project.title} des favoris`}
+                    >
+                      <X size={15} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={`https://wa.me/22899513224?text=${encodeURIComponent(favoritesMessage)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500/90 px-3 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-500"
+                >
+                  <SiWhatsapp size={17} /> WhatsApp
+                </a>
+                <a
+                  href={`mailto:zsundayabell@gmail.com?subject=${encodeURIComponent(favoritesSubject)}&body=${encodeURIComponent(favoritesMessage)}`}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-amber-400/90 px-3 py-2.5 text-sm font-bold text-black transition hover:bg-amber-300"
+                >
+                  <Mail size={17} /> E-mail
+                </a>
+              </div>
+            </>
+          )}
+        </aside>
+      )}
+      <button
+        type="button"
+        onClick={() => setFavoritesOpen(open => !open)}
+        className="fixed bottom-6 left-6 z-40 flex h-14 items-center gap-2 rounded-full border border-amber-300/40 bg-[#11100d]/55 px-4 text-amber-100 shadow-xl shadow-black/30 backdrop-blur-lg transition hover:bg-[#11100d]/80 hover:scale-105"
+        aria-label={`Ouvrir les favoris, ${favoriteProjects.length} projet${favoriteProjects.length > 1 ? 's' : ''}`}
+        aria-expanded={favoritesOpen}
+      >
+        <ShoppingBag size={20} />
+        <span className="font-bebas text-sm tracking-wider">Favoris</span>
+        <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-amber-400 px-1.5 text-xs font-bold text-black">
+          {favoriteProjects.length}
+        </span>
+      </button>
       <a
         href="https://wa.me/22899513224"
         target="_blank"
@@ -1876,11 +2051,8 @@ export default function Portfolio() {
       </a>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
-
         * {
           scroll-behavior: smooth;
-          font-family: 'Inter', sans-serif;
         }
 
         @keyframes fadeInUp {

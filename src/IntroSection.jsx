@@ -15,11 +15,6 @@ export default function IntroSection() {
       <Hover3DButton onClick={() => setExpanded(!expanded)}>
         {expanded ? 'Lire moins' : 'Lire la suite'}
       </Hover3DButton>
-
-        className="mt-4 px-5 py-2 bg-yellow-600 text-white rounded-full hover:bg-yellow-700 transition-colors"
-      >
-        {expanded ? 'Lire moins' : 'Lire la suite'}
-      </button>
     </section>
   );
 }
