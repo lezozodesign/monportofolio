@@ -541,6 +541,15 @@ export default function Portfolio() {
     },
     {
       category: 'Vidéo',
+      title: 'OTRONE — Interviews d’ADG & Emmanuel Le Starboy',
+      desc: 'Interviews réalisées au concert OTRONE pour recueillir les impressions d’ADG et d’Emmanuel Le Starboy.',
+      image: `${import.meta.env.BASE_URL}interview-otrone-poster.jpg`,
+      video: `${import.meta.env.BASE_URL}interview-otrone.mp4`,
+      type: 'video',
+      tags: ['OTRONE', 'Interview', 'ADG', 'Emmanuel Le Starboy']
+    },
+    {
+      category: 'Vidéo',
       title: 'ADN Togo — Cérémonie de Remise des Diplômes',
       desc: 'Captation événementielle, montage dynamique et habillage vidéo pour la remise des diplômes de la première promotion de l\'Académie Digitale Numérique. Un film rythmé et émouvant célébrant l\'excellence tech togolaise.',
       image: `${import.meta.env.BASE_URL}thumbnails/adn.jpg`,
