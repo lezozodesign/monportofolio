@@ -302,11 +302,11 @@ export default function Portfolio() {
     const video = selectedVideoRef.current;
     if (!video) return;
 
-    video.muted = false;
-    video.volume = 1;
+    video.muted = Boolean(selectedImage.muted);
+    video.volume = selectedImage.muted ? 0 : 1;
     video.play()
       .then(() => setVideoNeedsInteraction(false))
-      .catch(() => setVideoNeedsInteraction(true));
+      .catch(() => setVideoNeedsInteraction(!selectedImage.muted));
   }, [selectedImage]);
 
   useEffect(() => {
@@ -503,6 +503,30 @@ export default function Portfolio() {
   ];
 
   const projects = [
+    {
+      category: 'Branding & Logo',
+      title: 'SG & PARTNERS — Identité visuelle et animation du logo',
+      desc: 'Présentation de l’identité visuelle de SG & PARTNERS, construite autour d’un sigle géométrique aux lignes architecturales. Le nom de l’entreprise et sa signature « Ici commence votre histoire » accompagnent le symbole pour former une identité claire et reconnaissable. Le logo est décliné en rouge et blanc, en bleu et blanc ainsi que sur une photographie de façade, afin de montrer comment il s’adapte à différents fonds. Une animation courte met le sigle en mouvement et révèle l’univers de la marque ; elle est proposée sans son pour laisser toute la place à la forme, aux couleurs et au logo.',
+      image: `${import.meta.env.BASE_URL}sg-partners-logo-red-white.jpeg`,
+      video: `${import.meta.env.BASE_URL}sg-partners-logo-animation.mp4`,
+      type: 'video',
+      muted: true,
+      images: [
+        `${import.meta.env.BASE_URL}sg-partners-logo-photo.jpeg`,
+        `${import.meta.env.BASE_URL}sg-partners-logo-red-white.jpeg`,
+        `${import.meta.env.BASE_URL}sg-partners-logo-blue-white.jpeg`,
+        `${import.meta.env.BASE_URL}sg-partners-logo-white-red.jpeg`,
+        `${import.meta.env.BASE_URL}sg-partners-logo-white-blue.jpeg`
+      ],
+      imageLabels: [
+        'Logo sur fond photo',
+        'Logo rouge sur fond blanc',
+        'Logo bleu sur fond blanc',
+        'Logo blanc sur fond rouge',
+        'Logo blanc sur fond bleu'
+      ],
+      tags: ['SG & PARTNERS', 'Identité visuelle', 'Logo', 'Animation du logo', 'Motion Design']
+    },
     {
       category: 'Vidéo',
       title: "Concert d'hommage au Pasteur Davidson — Lezozo",
@@ -797,7 +821,7 @@ export default function Portfolio() {
                 >
                   Votre navigateur ne supporte pas la lecture de vidéos.
                 </video>
-                {videoNeedsInteraction && (
+                {videoNeedsInteraction && !selectedImage.muted && (
                   <button
                     type="button"
                     onClick={() => {
@@ -813,6 +837,35 @@ export default function Portfolio() {
                   >
                     Lancer la vidéo avec le son
                   </button>
+                )}
+                {selectedImage.images && selectedImage.images.length > 0 && (
+                  <div className="relative mt-4 flex items-center justify-center">
+                    <img
+                      src={selectedImage.images[activeModalImgIndex]}
+                      alt={`${selectedImage.title} — ${selectedImage.imageLabels?.[activeModalImgIndex] || 'logo'}`}
+                      className="max-h-[45vh] w-auto rounded-2xl border border-violet-500/20 object-contain shadow-xl"
+                    />
+                    {selectedImage.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => setActiveModalImgIndex((prev) => (prev - 1 + selectedImage.images.length) % selectedImage.images.length)}
+                          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-violet-600 transition-all border border-slate-700 shadow-xl"
+                          title="Logo précédent"
+                          aria-label="Logo précédent"
+                        >
+                          <ChevronLeft size={24} />
+                        </button>
+                        <button
+                          onClick={() => setActiveModalImgIndex((prev) => (prev + 1) % selectedImage.images.length)}
+                          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-violet-600 transition-all border border-slate-700 shadow-xl"
+                          title="Logo suivant"
+                          aria-label="Logo suivant"
+                        >
+                          <ChevronRight size={24} />
+                        </button>
+                      </>
+                    )}
+                  </div>
                 )}
               </div>
             ) : (
@@ -862,7 +915,7 @@ export default function Portfolio() {
                         : 'bg-zinc-900 text-zinc-400 border-zinc-700 hover:text-white'
                     }`}
                   >
-                    {idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)'}
+                    {selectedImage.imageLabels?.[idx] || (idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)')}
                   </button>
                 ))}
               </div>
@@ -874,7 +927,7 @@ export default function Portfolio() {
                   {selectedImage.category}
                 </span>
                 <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
-                  {selectedImage.type === 'video' ? 'Production Vidéo' : 'Design Graphique'}
+                  {selectedImage.category === 'Branding & Logo' ? 'Identité visuelle' : selectedImage.type === 'video' ? 'Production Vidéo' : 'Design Graphique'}
                 </span>
               </div>
 
@@ -1351,7 +1404,7 @@ export default function Portfolio() {
 
                       {/* Badge NOUVEAU / CATÉGORIE doré en haut à droite */}
                       <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 px-2 sm:px-2.5 py-0.5 rounded-full bg-[#F5B738] text-black font-bebas text-[10px] sm:text-xs tracking-wider shadow-md z-10 uppercase">
-                        {project.type === 'video' ? 'VIDÉO' : project.category === 'Branding & Logo' ? 'BRANDING' : 'VISUEL'}
+                        {project.category === 'Branding & Logo' ? 'BRANDING' : project.type === 'video' ? 'VIDÉO' : 'VISUEL'}
                       </div>
 
                       {/* Typo centrale incrustée */}
