@@ -548,6 +548,15 @@ export default function Portfolio() {
     },
     {
       category: 'Vidéo',
+      title: 'NOVARA IMMOBILIER — Présentation de l’entreprise',
+      desc: 'Vidéo réalisée aux débuts de Novara Immobilier, une entreprise spécialisée dans l’immobilier, la construction et le BTP, ainsi que l’élaboration de documents liés au foncier. L’entreprise est située à Adidogomé, en face du camp et à proximité de l’école ESGIS.',
+      image: `${import.meta.env.BASE_URL}novara-immobilier-poster.jpg`,
+      video: `${import.meta.env.BASE_URL}NOVARA%20IMMOBILER.MP4`,
+      type: 'video',
+      tags: ['Novara Immobilier', 'Immobilier', 'Construction & BTP', 'Foncier', 'Adidogomé']
+    },
+    {
+      category: 'Vidéo',
       title: 'OTRONE — Projet vidéo',
       desc: 'Animation du logo et création audiovisuelle autour du concert OTRONE du 11 octobre 2026, réalisées par Lezozo.',
       image: `${import.meta.env.BASE_URL}otrone-poster.jpg`,
