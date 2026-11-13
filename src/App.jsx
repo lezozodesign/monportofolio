@@ -504,6 +504,33 @@ export default function Portfolio() {
   const projects = [
     {
       category: 'Vidéo',
+      title: "Concert d'hommage au Pasteur Davidson — Lezozo",
+      desc: 'Création de contenu pour le concert d’hommage au Pasteur Davidson, organisé le 11 octobre 2026 à l’Hôtel Le Bénin. Projet signé Lezozo.',
+      image: '/concert-hommage-pasteur-davidson-poster.jpg',
+      video: '/concert-hommage-pasteur-davidson.mp4',
+      type: 'video',
+      tags: ['Lezozo', 'Création de contenu', 'Concert', 'Hôtel Le Bénin', '11 octobre 2026']
+    },
+    {
+      category: 'Vidéo',
+      title: 'FIALA — Production vidéo',
+      desc: 'Captation vidéo et création de contenu pour FIALA. Projet signé Lezozo.',
+      image: '/fiala-poster.jpg',
+      video: '/fiala-video.mp4',
+      type: 'video',
+      tags: ['Lezozo', 'FIALA', 'Vidéaste', 'Création de contenu']
+    },
+    {
+      category: 'Vidéo',
+      title: 'OTRONE — Projet vidéo',
+      desc: 'Projet audiovisuel réalisé par Lezozo pour OTRONE.',
+      image: '/otrone-poster.jpg',
+      video: '/otrone-video.mp4',
+      type: 'video',
+      tags: ['Lezozo', 'OTRONE', 'Vidéo']
+    },
+    {
+      category: 'Vidéo',
       title: 'ADN Togo — Cérémonie de Remise des Diplômes',
       desc: 'Captation événementielle, montage dynamique et habillage vidéo pour la remise des diplômes de la première promotion de l\'Académie Digitale Numérique. Un film rythmé et émouvant célébrant l\'excellence tech togolaise.',
       image: '/thumbnails/adn.jpg',
