@@ -173,12 +173,12 @@ function ToolBadge({ tool, darkMode, onShow, onHide }) {
       onBlur={onHide}
       onClick={(event) => onShow(tool, event.currentTarget)}
       aria-label={`${tool.label} : maîtrise ${tool.level} %`}
-      className={`w-full min-w-0 flex items-center gap-2 px-2.5 py-2 md:w-auto md:flex-shrink-0 md:gap-2.5 md:px-5 md:py-2.5 rounded-full border font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-amber-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 ${
+      className={`w-auto flex-shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-full border font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-amber-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 ${
         darkMode ? 'bg-[#11100d]/90 border-amber-400/20 text-slate-200' : 'bg-white border-amber-300/60 text-slate-700'
       }`}
     >
       <ToolIcon size={18} style={{ color: tool.color, flexShrink: 0 }} />
-      <span className="min-w-0 truncate">{tool.label}</span>
+      <span>{tool.label}</span>
     </button>
   );
 }
@@ -258,6 +258,7 @@ export default function Portfolio() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [hoveredProjectIndex, setHoveredProjectIndex] = useState(null);
   const [favoritesOpen, setFavoritesOpen] = useState(false);
+  const [expandedFormations, setExpandedFormations] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -1458,60 +1459,74 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-8 md:grid-cols-3">
             {formations.map((item, idx) => {
               const ItemIcon = item.icon;
+              const isExpanded = expandedFormations.includes(idx);
               return (
                 <div
                   key={idx}
-                  className={`p-4 sm:p-8 rounded-2xl sm:rounded-3xl border ${borderColor} transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-violet-600/20 flex flex-col justify-between relative overflow-hidden group ${
+                  className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl border ${borderColor} transition-all duration-300 hover:shadow-xl hover:shadow-violet-600/15 flex flex-col relative overflow-hidden group ${
                     darkMode ? 'glass-card-dark' : 'glass-card-light'
                   }`}
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-violet-500/10 via-transparent to-transparent pointer-events-none" />
 
-                  <div>
+                  <div className="relative">
                     {/* Badge top */}
-                    <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6">
-                      <div className="w-10 h-10 sm:w-14 sm:h-14 shrink-0 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-lg shadow-violet-600/30 group-hover:scale-105 transition-transform">
-                        <ItemIcon size={20} className="sm:hidden" />
-                        <ItemIcon size={26} className="hidden sm:block" />
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-10 h-10 shrink-0 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-violet-600/30">
+                        <ItemIcon size={20} />
                       </div>
-                      <span className="min-w-0 px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-violet-950/70 text-violet-300 border border-violet-500/30">
+                      <span className="min-w-0 mt-1 px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-violet-950/70 text-violet-300 border border-violet-500/30">
                         {item.badge}
                       </span>
                     </div>
 
-                    <p className="text-xs font-bold text-violet-400 uppercase tracking-wider mb-1">
+                    <p className="text-[10px] sm:text-xs font-bold text-violet-400 uppercase tracking-wider mb-1">
                       {item.school}
                     </p>
-                    <h3 className="font-sans text-base sm:text-xl font-black mb-2 sm:mb-3 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all">
+                    <h3 className="font-sans text-base sm:text-lg font-black mb-2 leading-snug">
                       {item.degree}
                     </h3>
-                    <p className="text-xs text-slate-400 font-medium mb-4 flex items-center gap-1.5">
+                    <p className="text-[11px] sm:text-xs text-slate-400 font-medium flex items-center gap-1.5">
                       <Globe size={13} className="text-violet-400" /> {item.location} • {item.period}
                     </p>
-                    <p className={`${textSecondary} text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6`}>
-                      {item.desc}
-                    </p>
+
+                    {isExpanded && (
+                      <div className="mt-4">
+                        <p className={`${textSecondary} text-xs sm:text-sm leading-relaxed mb-4`}>
+                          {item.desc}
+                        </p>
+                        <p className="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-2">
+                          Compétences acquises
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.skills.map((sk, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg border ${
+                                darkMode
+                                  ? 'bg-violet-950/50 text-violet-300 border-violet-500/25'
+                                  : 'bg-violet-50 text-violet-700 border-violet-200'
+                              }`}
+                            >
+                              {sk}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-2.5">
-                      Compétences acquises :
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {item.skills.map((sk, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border ${
-                            darkMode
-                              ? 'bg-violet-950/50 text-violet-300 border-violet-500/25'
-                              : 'bg-violet-50 text-violet-700 border-violet-200'
-                          }`}
-                        >
-                          {sk}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <button
+                    type="button"
+                    aria-expanded={isExpanded}
+                    onClick={() => setExpandedFormations((current) => (
+                      isExpanded ? current.filter((formationIndex) => formationIndex !== idx) : [...current, idx]
+                    ))}
+                    className="relative mt-4 flex items-center justify-between border-t border-violet-500/15 pt-3 text-xs font-bold text-violet-400 transition-colors hover:text-violet-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+                  >
+                    <span>{isExpanded ? 'Voir moins' : 'Voir plus'}</span>
+                    <ChevronRight className={`transition-transform ${isExpanded ? '-rotate-90' : 'rotate-90'}`} size={16} />
+                  </button>
                 </div>
               );
             })}
@@ -1621,7 +1636,7 @@ export default function Portfolio() {
 
         {/* Piste 1 — sens normal */}
           <div className="mb-4">
-          <div className={`${isMobile ? 'grid grid-cols-2 gap-2.5' : 'marquee-track flex gap-5'}`}>
+          <div className="marquee-track flex gap-5">
             {[
               { label: 'React', Icon: SiReact, color: '#61DAFB' },
               { label: 'Tailwind CSS', Icon: SiTailwindcss, color: '#38BDF8' },
@@ -1657,7 +1672,6 @@ export default function Portfolio() {
               { label: 'Laravel', Icon: SiLaravel, color: '#FF2D20' },
               { label: 'Canva', Icon: CanvaIcon, color: '#00C4CC' },
             ].map((tool, i) => {
-              if (isMobile && i >= 16) return null;
               const ToolIcon = tool.Icon;
               const toolWithLevel = { ...tool, Icon: ToolIcon, level: toolProficiency[tool.label] };
               return (
@@ -1675,7 +1689,7 @@ export default function Portfolio() {
 
         {/* Piste 2 — sens inverse */}
         <div>
-          <div className={`${isMobile ? 'grid grid-cols-2 gap-2.5' : 'marquee-track-rev flex gap-5'}`}>
+          <div className="marquee-track-rev flex gap-5">
             {[
               { label: 'GitHub', Icon: SiGithub, color: '#ffffff' },
               { label: 'Node.js', Icon: SiNodedotjs, color: '#68A063' },
@@ -1703,7 +1717,6 @@ export default function Portfolio() {
               { label: 'After Effects', Icon: AfterEffectsIcon, color: '#9999FF' },
               { label: 'Git', Icon: SiGit, color: '#F05032' },
             ].map((tool, i) => {
-              if (isMobile && i >= 12) return null;
               const ToolIcon = tool.Icon;
               const toolWithLevel = { ...tool, Icon: ToolIcon, level: toolProficiency[tool.label] };
               return (
