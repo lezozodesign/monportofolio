@@ -515,38 +515,38 @@ export default function Portfolio() {
     {
       category: 'Vidéo',
       title: 'FIALA — Production vidéo',
-      desc: 'Captation vidéo et création de contenu pour FIALA. Projet signé Lezozo.',
+      desc: 'Captation vidéo et création de contenu pour FIALA, réalisée le 6 septembre 2026. Projet signé Lezozo.',
       image: `${import.meta.env.BASE_URL}fiala-poster.jpg`,
       video: `${import.meta.env.BASE_URL}fiala-video.mp4`,
       type: 'video',
-      tags: ['Lezozo', 'FIALA', 'Vidéaste', 'Création de contenu']
+      tags: ['Lezozo', 'FIALA', 'Vidéaste', 'Création de contenu', '6 septembre 2026']
     },
     {
       category: 'Vidéo',
       title: 'OTRONE — Projet vidéo',
-      desc: 'Animation du logo et création audiovisuelle autour du concert OTRONE, réalisées par Lezozo.',
+      desc: 'Animation du logo et création audiovisuelle autour du concert OTRONE du 11 octobre 2026, réalisées par Lezozo.',
       image: `${import.meta.env.BASE_URL}otrone-poster.jpg`,
       video: `${import.meta.env.BASE_URL}otrone-video.mp4`,
       type: 'video',
-      tags: ['Lezozo', 'OTRONE', 'Animation de logo', 'Concert']
+      tags: ['Lezozo', 'OTRONE', 'Animation de logo', 'Concert', '11 octobre 2026']
     },
     {
       category: 'Vidéo',
       title: 'OTRONE — Animation du logo',
-      desc: 'Animation du logo doré du concert OTRONE, réalisée par Lezozo.',
+      desc: 'Animation du logo doré du concert OTRONE, réalisée le 12 octobre 2026 par Lezozo.',
       image: `${import.meta.env.BASE_URL}otrone-logo-animation.jpg`,
       video: `${import.meta.env.BASE_URL}ANIMATION%20OTRONE.MP4`,
       type: 'video',
-      tags: ['OTRONE', 'Logo', 'Motion Design']
+      tags: ['OTRONE', 'Logo', 'Motion Design', '12 octobre 2026']
     },
     {
       category: 'Vidéo',
       title: 'OTRONE — Interviews d’ADG & Emmanuel Le Starboy',
-      desc: 'Interviews réalisées au concert OTRONE pour recueillir les impressions d’ADG et d’Emmanuel Le Starboy.',
+      desc: 'Interviews réalisées au concert OTRONE du 11 octobre 2026 pour recueillir les impressions d’ADG et d’Emmanuel Le Starboy.',
       image: `${import.meta.env.BASE_URL}interview-otrone-poster.jpg`,
       video: `${import.meta.env.BASE_URL}interview-otrone.mp4`,
       type: 'video',
-      tags: ['OTRONE', 'Interview', 'ADG', 'Emmanuel Le Starboy']
+      tags: ['OTRONE', 'Interview', 'ADG', 'Emmanuel Le Starboy', '11 octobre 2026']
     },
     {
       category: 'Vidéo',
