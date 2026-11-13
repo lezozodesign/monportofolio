@@ -13,6 +13,18 @@ const SHOWREEL_ITEMS = [
     description: 'Animation dynamique & branding immersif'
   },
   {
+    id: 11,
+    type: 'video',
+    title: 'OTRONE — Animation du logo',
+    category: 'Motion Design',
+    src: `${import.meta.env.BASE_URL}ANIMATION%20OTRONE.MP4`,
+    poster: `${import.meta.env.BASE_URL}otrone-logo-animation.jpg`,
+    badge: 'OTRONE',
+    description: 'Animation courte du logo du concert OTRONE, réalisée par Lezozo.',
+    fit: 'contain',
+    mutedByDefault: true
+  },
+  {
     id: 2,
     type: 'image',
     title: 'DAYAL — Identité visuelle',
@@ -108,6 +120,7 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
   const [playbackNeedsInteraction, setPlaybackNeedsInteraction] = useState(false);
   const videoRef = useRef(null);
   const currentItem = SHOWREEL_ITEMS[currentIndex];
+  const isVideoMuted = currentItem.mutedByDefault || isMuted;
 
   const toggleSound = () => {
     const nextMuted = !isMuted;
@@ -124,12 +137,12 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
 
   // Enchaîne les séquences du showreel sans interruption.
   useEffect(() => {
-    if (!isPlaying || (currentItem.type === 'video' && !isMuted)) return;
+    if (!isPlaying || (currentItem.type === 'video' && !isVideoMuted)) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % SHOWREEL_ITEMS.length);
     }, 6500);
     return () => clearInterval(interval);
-  }, [currentIndex, currentItem.type, isMuted, isPlaying]);
+  }, [currentIndex, currentItem.type, isVideoMuted, isPlaying]);
 
   // Seule la vidéo actuellement affichée est chargée et lue.
   useEffect(() => {
@@ -141,11 +154,11 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
       return;
     }
 
-    video.muted = isMuted;
+    video.muted = isVideoMuted;
     video.play()
       .then(() => setPlaybackNeedsInteraction(false))
       .catch(() => setPlaybackNeedsInteraction(true));
-  }, [currentIndex, currentItem.type, isMuted, isPlaying]);
+  }, [currentIndex, currentItem.type, isVideoMuted, isPlaying]);
 
   useEffect(() => {
     setMediaError(false);
@@ -196,20 +209,22 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
                   ref={videoRef}
                   src={currentItem.src}
                   poster={currentItem.poster}
-                  muted={isMuted}
+                  muted={isVideoMuted}
                   playsInline
-                  loop={isMuted}
+                  loop={isVideoMuted}
                   autoPlay={isPlaying}
                   controls
                   preload="metadata"
                   onError={() => setMediaError(true)}
                   onEnded={() => {
-                    if (isPlaying && !isMuted) {
+                    if (isPlaying && !isVideoMuted) {
                       setCurrentIndex((prev) => (prev + 1) % SHOWREEL_ITEMS.length);
                     }
                   }}
                   aria-label={`Extrait vidéo : ${currentItem.title}`}
-                  className="showreel-media-enter absolute inset-0 h-full w-full object-cover"
+                  className={`showreel-media-enter absolute inset-0 h-full w-full ${
+                    currentItem.fit === 'contain' ? 'bg-white object-contain' : 'object-cover'
+                  }`}
                 />
               ) : (
                 <img
@@ -223,7 +238,11 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
             ) : (
               currentItem.type === 'video' ? (
                 <div className="absolute inset-0 bg-slate-950">
-                  <img src={currentItem.poster} alt={`Aperçu : ${currentItem.title}`} className="h-full w-full object-cover" />
+                  <img
+                    src={currentItem.poster}
+                    alt={`Aperçu : ${currentItem.title}`}
+                    className={`h-full w-full ${currentItem.fit === 'contain' ? 'bg-white object-contain' : 'object-cover'}`}
+                  />
                   <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-5">
                     <span className="inline-flex items-center gap-2 rounded-full bg-black/50 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
                       <Film size={14} /> Aperçu vidéo
@@ -245,7 +264,7 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
                 onClick={() => {
                   const video = videoRef.current;
                   if (video) {
-                    video.muted = isMuted;
+                    video.muted = isVideoMuted;
                     video.play()
                       .then(() => setPlaybackNeedsInteraction(false))
                       .catch(() => setPlaybackNeedsInteraction(true));
@@ -253,10 +272,10 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
                 }}
                 className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400 px-5 py-3 font-semibold text-black shadow-xl transition hover:bg-amber-300"
               >
-                Lancer la vidéo avec le son
+                {currentItem.mutedByDefault ? 'Lancer l’animation' : 'Lancer la vidéo avec le son'}
               </button>
             )}
-            {currentItem.type === 'video' && (
+            {currentItem.type === 'video' && !currentItem.mutedByDefault && (
               <button
                 type="button"
                 onClick={toggleSound}
@@ -264,8 +283,8 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
                 aria-pressed={!isMuted}
                 className="absolute right-3 top-14 z-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-2 text-xs font-semibold text-white shadow-xl backdrop-blur-md transition hover:bg-violet-600 sm:right-5 sm:top-5"
               >
-                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                <span>{isMuted ? 'Activer le son' : 'Couper le son'}</span>
+                {isVideoMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                <span>{isVideoMuted ? 'Activer le son' : 'Couper le son'}</span>
               </button>
             )}
             <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.1em] text-white backdrop-blur-md sm:left-5 sm:top-5 sm:px-3 sm:text-[10px] sm:tracking-[0.15em]">
@@ -358,7 +377,13 @@ export default function VideoShowcaseCarousel({ darkMode = true }) {
                       {item.type === 'image' ? (
                         <img src={item.src} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover/thumb:scale-110" />
                       ) : (
-                        <img src={item.poster} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover/thumb:scale-110" />
+                        <img
+                          src={item.poster}
+                          alt=""
+                          className={`h-full w-full transition-transform duration-500 group-hover/thumb:scale-110 ${
+                            item.fit === 'contain' ? 'bg-white object-contain' : 'object-cover'
+                          }`}
+                        />
                       )}
                       {item.type === 'video' && (
                         <span className="absolute bottom-1 right-1 rounded bg-black/65 p-1 text-white">

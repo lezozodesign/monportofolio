@@ -524,11 +524,11 @@ export default function Portfolio() {
     {
       category: 'Vidéo',
       title: 'OTRONE — Projet vidéo',
-      desc: 'Projet audiovisuel réalisé par Lezozo pour OTRONE.',
+      desc: 'Animation du logo et création audiovisuelle autour du concert OTRONE, réalisées par Lezozo.',
       image: `${import.meta.env.BASE_URL}otrone-poster.jpg`,
       video: `${import.meta.env.BASE_URL}otrone-video.mp4`,
       type: 'video',
-      tags: ['Lezozo', 'OTRONE', 'Vidéo']
+      tags: ['Lezozo', 'OTRONE', 'Animation de logo', 'Concert']
     },
     {
       category: 'Vidéo',
