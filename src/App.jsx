@@ -921,18 +921,28 @@ export default function Portfolio() {
             )}
 
             {selectedImage.images && selectedImage.images.length > 1 && (
-              <div className="flex gap-3 mt-4">
-                {selectedImage.images.map((_, idx) => (
+              <div className="mt-4 flex w-full max-w-3xl gap-2 overflow-x-auto pb-2">
+                {selectedImage.images.map((image, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveModalImgIndex(idx)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all border ${
+                    aria-label={`Afficher : ${selectedImage.imageLabels?.[idx] || (idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)')}`}
+                    aria-pressed={activeModalImgIndex === idx}
+                    className={`relative flex w-28 shrink-0 flex-col items-center gap-2 rounded-xl border p-2 transition-colors ${
                       activeModalImgIndex === idx
-                        ? 'bg-amber-400 text-black border-amber-300 shadow-lg shadow-amber-400/30'
-                        : 'bg-zinc-900 text-zinc-400 border-zinc-700 hover:text-white'
+                        ? 'border-amber-400/80 bg-amber-400/[0.08] text-white'
+                        : 'border-white/10 bg-white/[0.03] text-zinc-400 hover:border-white/25 hover:text-zinc-200'
                     }`}
                   >
-                    {selectedImage.imageLabels?.[idx] || (idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)')}
+                    <span className="relative block h-12 w-full overflow-hidden rounded-lg bg-black/40">
+                      <img src={image} alt="" className="h-full w-full object-cover" />
+                      {activeModalImgIndex === idx && (
+                        <CheckCircle2 size={16} className="absolute right-1 top-1 rounded-full bg-zinc-950 text-amber-400" />
+                      )}
+                    </span>
+                    <span className="line-clamp-2 min-h-8 w-full text-center text-[10px] font-semibold leading-tight">
+                      {selectedImage.imageLabels?.[idx] || (idx === 0 ? 'Couverture (Recto)' : 'Programme & Annonces (Verso)')}
+                    </span>
                   </button>
                 ))}
               </div>
