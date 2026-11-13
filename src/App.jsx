@@ -550,6 +550,15 @@ export default function Portfolio() {
     },
     {
       category: 'Vidéo',
+      title: 'TAM — Animation du sigle',
+      desc: 'Animation du sigle TAM réalisée avec Claude Code le 19 octobre 2026, dans un style bruité et enfantin.',
+      image: `${import.meta.env.BASE_URL}tam-animation-poster.jpg`,
+      video: `${import.meta.env.BASE_URL}tam.MP4`,
+      type: 'video',
+      tags: ['TAM', 'Animation', 'Claude Code', 'Style bruité', 'Style enfantin', '19 octobre 2026']
+    },
+    {
+      category: 'Vidéo',
       title: 'ADN Togo — Cérémonie de Remise des Diplômes',
       desc: 'Captation événementielle, montage dynamique et habillage vidéo pour la remise des diplômes de la première promotion de l\'Académie Digitale Numérique. Un film rythmé et émouvant célébrant l\'excellence tech togolaise.',
       image: `${import.meta.env.BASE_URL}thumbnails/adn.jpg`,
