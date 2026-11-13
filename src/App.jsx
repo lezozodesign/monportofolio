@@ -889,7 +889,7 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection('accueil')}>
             <img
-              src="logo.png"
+              src="/logo.png?v=2"
               alt="Lezozo Logo"
               className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(139,92,246,0.4)]"
             />
@@ -1983,7 +1983,7 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-4">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection('accueil')}>
             <img
-              src="logo.png"
+              src="/logo.png?v=2"
               alt="Lezozo Logo"
               className="h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(139,92,246,0.3)]"
             />
