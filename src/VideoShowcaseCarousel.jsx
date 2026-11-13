@@ -7,7 +7,7 @@ const SHOWREEL_ITEMS = [
     type: 'video',
     title: 'Visual Identity & Motion ADN',
     category: 'Motion Design',
-    src: '/ADN.mp4',
+    src: `${import.meta.env.BASE_URL}ADN.mp4`,
     poster: '/thumbnails/adn.jpg',
     badge: 'Clip 01',
     description: 'Animation dynamique & branding immersif'
@@ -17,7 +17,7 @@ const SHOWREEL_ITEMS = [
     type: 'image',
     title: 'DAYAL — Identité visuelle',
     category: 'Branding',
-    src: '/Dayal.png',
+    src: `${import.meta.env.BASE_URL}Dayal.png`,
     badge: 'Visuel 01',
     description: 'Une identité graphique pensée pour marquer les esprits'
   },
@@ -26,7 +26,7 @@ const SHOWREEL_ITEMS = [
     type: 'video',
     title: 'Spot Publicitaire Chronos',
     category: 'Commercial Cut',
-    src: '/chronos.mp4',
+    src: `${import.meta.env.BASE_URL}chronos.mp4`,
     poster: '/thumbnails/chronos.jpg',
     badge: 'Clip 02',
     description: 'Rythme percutant & transition rapide'
@@ -36,7 +36,7 @@ const SHOWREEL_ITEMS = [
     type: 'image',
     title: 'AGRILIFE — Brand board',
     category: 'Direction artistique',
-    src: '/agrilife.png',
+    src: `${import.meta.env.BASE_URL}agrilife.png`,
     badge: 'Visuel 02',
     description: 'Couleurs, formes et univers de marque en harmonie'
   },
@@ -45,7 +45,7 @@ const SHOWREEL_ITEMS = [
     type: 'video',
     title: 'Showreel Événement Fic-RC',
     category: 'Aftermovie',
-    src: '/fic-rc.mp4',
+    src: `${import.meta.env.BASE_URL}fic-rc.mp4`,
     poster: '/thumbnails/fic-rc.jpg',
     badge: 'Clip 03',
     description: 'Captation vidéo & étalonnage cinématique'
@@ -55,7 +55,7 @@ const SHOWREEL_ITEMS = [
     type: 'image',
     title: 'PADNOVE — Identité de marque',
     category: 'Branding',
-    src: '/PADNOVE.png',
+    src: `${import.meta.env.BASE_URL}PADNOVE.png`,
     badge: 'Visuel 03',
     description: 'Une identité singulière pour une startup ambitieuse'
   },
@@ -64,7 +64,7 @@ const SHOWREEL_ITEMS = [
     type: 'video',
     title: 'Teaser Institutionnel Sichem',
     category: 'Corporate Cut',
-    src: '/sichem.mp4',
+    src: `${import.meta.env.BASE_URL}sichem.mp4`,
     poster: '/thumbnails/sichem.jpg',
     badge: 'Clip 04',
     description: 'Storytelling visuel & graphisme sobre'
@@ -83,7 +83,7 @@ const SHOWREEL_ITEMS = [
     type: 'video',
     title: 'YMCA Visual Session 01',
     category: 'Creative Cut',
-    src: '/ymca1.mp4',
+    src: `${import.meta.env.BASE_URL}ymca1.mp4`,
     poster: '/thumbnails/ymca1.jpg',
     badge: 'Clip 05',
     description: 'Montage créatif & séquençage punchy'
@@ -93,7 +93,7 @@ const SHOWREEL_ITEMS = [
     type: 'video',
     title: 'YMCA Visual Session 02',
     category: 'Highlight Reel',
-    src: '/ymca2.mp4',
+    src: `${import.meta.env.BASE_URL}ymca2.mp4`,
     poster: '/thumbnails/ymca2.jpg',
     badge: 'Clip 06',
     description: 'Plans dynamiques sans artifice sonore'

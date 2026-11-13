@@ -507,8 +507,8 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: "Concert d'hommage au Pasteur Davidson — Lezozo",
       desc: 'Création de contenu pour le concert d’hommage au Pasteur Davidson, organisé le 11 octobre 2026 à l’Hôtel Le Bénin. Projet signé Lezozo.',
-      image: '/concert-hommage-pasteur-davidson-poster.jpg',
-      video: '/concert-hommage-pasteur-davidson.mp4',
+      image: `${import.meta.env.BASE_URL}concert-hommage-pasteur-davidson-poster.jpg`,
+      video: `${import.meta.env.BASE_URL}concert-hommage-pasteur-davidson.mp4`,
       type: 'video',
       tags: ['Lezozo', 'Création de contenu', 'Concert', 'Hôtel Le Bénin', '11 octobre 2026']
     },
@@ -516,8 +516,8 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'FIALA — Production vidéo',
       desc: 'Captation vidéo et création de contenu pour FIALA. Projet signé Lezozo.',
-      image: '/fiala-poster.jpg',
-      video: '/fiala-video.mp4',
+      image: `${import.meta.env.BASE_URL}fiala-poster.jpg`,
+      video: `${import.meta.env.BASE_URL}fiala-video.mp4`,
       type: 'video',
       tags: ['Lezozo', 'FIALA', 'Vidéaste', 'Création de contenu']
     },
@@ -525,8 +525,8 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'OTRONE — Projet vidéo',
       desc: 'Projet audiovisuel réalisé par Lezozo pour OTRONE.',
-      image: '/otrone-poster.jpg',
-      video: '/otrone-video.mp4',
+      image: `${import.meta.env.BASE_URL}otrone-poster.jpg`,
+      video: `${import.meta.env.BASE_URL}otrone-video.mp4`,
       type: 'video',
       tags: ['Lezozo', 'OTRONE', 'Vidéo']
     },
@@ -534,7 +534,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'ADN Togo — Cérémonie de Remise des Diplômes',
       desc: 'Captation événementielle, montage dynamique et habillage vidéo pour la remise des diplômes de la première promotion de l\'Académie Digitale Numérique. Un film rythmé et émouvant célébrant l\'excellence tech togolaise.',
-      image: '/thumbnails/adn.jpg',
+      image: `${import.meta.env.BASE_URL}thumbnails/adn.jpg`,
       video: 'ADN.mp4',
       type: 'video',
       tags: ['ADN Togo', 'Aftermovie', 'Motion Design', 'Direction Artistique']
@@ -543,7 +543,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'YMCA Togo — Parcours Entrepreneur : Yao Hervé',
       desc: 'Reportage immersif et portrait inspirant dans le cadre du programme d\'incubation entrepreneuriale de YMCA Togo. Suivi de Yao Hervé Mawunyo AMEGNISSE, avec prises de vue soignées et étalonnage cinématique.',
-      image: '/thumbnails/ymca1.jpg',
+      image: `${import.meta.env.BASE_URL}thumbnails/ymca1.jpg`,
       video: 'ymca1.mp4',
       type: 'video',
       tags: ['YMCA Togo', 'Reportage', 'Storytelling', 'Direction Artistique']
@@ -552,7 +552,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'YMCA Togo — Parcours Entrepreneur : Marceline Abla',
       desc: 'Reportage et mise en lumière de l\'entrepreneuriat féminin avec Marceline Abla NOUKOUNOU. Storytelling dynamique, interviews poignantes et valorisation des initiatives locales accompagnées par YMCA Togo.',
-      image: '/thumbnails/ymca2.jpg',
+      image: `${import.meta.env.BASE_URL}thumbnails/ymca2.jpg`,
       video: 'ymca2.mp4',
       type: 'video',
       tags: ['YMCA Togo', 'Portrait Vidéo', 'Entrepreneuriat', 'Montage Rythmé']
@@ -562,7 +562,7 @@ export default function Portfolio() {
       title: 'Mémorial Agbosu Mary — Livret & Faire-Part d\'Obsèques',
       desc: 'Conception graphique et création éditoriale soignée (couverture et programme complet) pour les obsèques d\'AGBOSU Mary (« Schooltor »). Typographie sobre, harmonie florale et mise en page haute définition pour impression.',
       image: 'obseques-agbosu-mary-front.jpg',
-      thumbnail: '/thumbnails/projects/obseques-agbosu.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/obseques-agbosu.webp`,
       images: [
         'obseques-agbosu-mary-front.jpg',
         'obseques-agbosu-mary-back.jpg'
@@ -575,7 +575,7 @@ export default function Portfolio() {
       title: 'Togoviande — Affiche Promotionnelle & Grille Tarifaire',
       desc: 'Création publicitaire percutante (format 10×14 cm) annonçant la nouvelle grille tarifaire de Togoviande. Hiérarchisation claire des prix, mise en valeur des produits et identité visuelle respectée.',
       image: 'FLYERS-TOGOVIANDE-10CM14CM.png',
-      thumbnail: '/thumbnails/projects/togoviande-flyer.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-flyer.webp`,
       type: 'image',
       tags: ['Affinity Designer', 'Affiche Publicitaire', 'Marketing Print', 'Branding']
     },
@@ -584,7 +584,7 @@ export default function Portfolio() {
       title: 'Togoviande — Packaging & Étiquette Viande de Bœuf',
       desc: 'Design de packaging alimentaire (8.57 × 12 cm) pour la viande de bœuf fraîche. Respect des normes d\'étiquetage, codes couleurs attractifs et valorisation premium du produit en rayon.',
       image: 'TOGOVIANDE-ETIQUETTE-BOEUF (8.57 x 12 cm).png',
-      thumbnail: '/thumbnails/projects/togoviande-boeuf.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-boeuf.webp`,
       type: 'image',
       tags: ['Packaging Design', 'Étiquette Produit', 'Affinity Designer', 'Agroalimentaire']
     },
@@ -593,7 +593,7 @@ export default function Portfolio() {
       title: 'Togoviande — Packaging & Étiquette Viande de Chèvre',
       desc: 'Conception graphique de l\'étiquette produit (8.57 × 12 cm) pour la viande de chèvre locale. Typographie soignée, pictogrammes explicatifs et design adapté aux exigences de la grande distribution.',
       image: 'TOGOVIANDE-ETIQUETTE-CHEVRE (8.57 x 12 cm).png',
-      thumbnail: '/thumbnails/projects/togoviande-chevre.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-chevre.webp`,
       type: 'image',
       tags: ['Packaging Design', 'Étiquette Produit', 'Affinity Designer', 'Agroalimentaire']
     },
@@ -602,7 +602,7 @@ export default function Portfolio() {
       title: 'Togoviande — Packaging Volaille (Grand Format)',
       desc: 'Habillage d\'emballage grand format (8.57 × 12 cm) pour le poulet fermier local. Composition moderne mettant en avant l\'origine locale, la qualité nutritionnelle et la garantie de fraîcheur.',
       image: 'TOGOVIANDE-ETIQUETTE-POULE-GRAND-FORMAT (8.57 x 12 cm).png',
-      thumbnail: '/thumbnails/projects/togoviande-poule-grand.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-poule-grand.webp`,
       type: 'image',
       tags: ['Packaging Design', 'Packaging Volaille', 'Affinity Designer', 'Print']
     },
@@ -611,7 +611,7 @@ export default function Portfolio() {
       title: 'Togoviande — Packaging Volaille (Petit Format)',
       desc: 'Déclinaison packaging harmonisée pour le conditionnement petit format (8.57 × 12 cm). Équilibre parfait entre contraintes d\'espace, mentions légales et impact visuel immédiat en boutique.',
       image: 'TOGOVIANDE-ETIQUETTE-POULE-PETIT-FORMAT (8.57 x 12 cm).png',
-      thumbnail: '/thumbnails/projects/togoviande-poule-petit.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-poule-petit.webp`,
       type: 'image',
       tags: ['Packaging Design', 'Déclinaison Gamme', 'Affinity Designer', 'Print']
     },
@@ -620,7 +620,7 @@ export default function Portfolio() {
       title: 'Togoviande — Packaging Volaille (Maxi Format)',
       desc: 'Création graphique de la version maxi format (8.57 × 12 cm) de la gamme poulet. Palette chromatique énergique, lisibilité optimale et parfaite cohérence avec la charte de la marque.',
       image: 'TOGOVIANDE-ETIQUETTE-POULE-MAXI-FORMAT (8.57 x 12 cm).png',
-      thumbnail: '/thumbnails/projects/togoviande-poule-maxi.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-poule-maxi.webp`,
       type: 'image',
       tags: ['Packaging Design', 'Packaging Volaille', 'Affinity Designer', 'Print']
     },
@@ -629,7 +629,7 @@ export default function Portfolio() {
       title: 'Togoviande — Packaging & Étiquette Saucisse Pur Bœuf',
       desc: 'Design d\'étiquette packaging (8.57 × 12 cm) pour la gamme charcuterie et saucisses pur bœuf de Togoviande. Esthétique appétissante, code couleur gourmand et clarté des informations de conservation.',
       image: 'TOGOVIANDE-ETIQUETTE-SAUCISSE-DE BOEUF (8.57 x 12 cm).png',
-      thumbnail: '/thumbnails/projects/togoviande-saucisse.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/togoviande-saucisse.webp`,
       type: 'image',
       tags: ['Packaging Design', 'Charcuterie', 'Affinity Designer', 'Agroalimentaire']
     },
@@ -638,7 +638,7 @@ export default function Portfolio() {
       title: 'Prayer Moment — Affiche Événementielle Chrétienne',
       desc: 'Conception de l\'affiche officielle pour un temps fort de prière et de louange chrétienne. Jeux de lumières célestes, typographie inspirante et composition percutante pour affichage et réseaux sociaux.',
       image: 'Visuel évènementielle chrétienne.png',
-      thumbnail: '/thumbnails/projects/prayer-moment.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/prayer-moment.webp`,
       type: 'image',
       tags: ['Affiche Événement', 'Direction Artistique', 'Communication Visuelle', 'Réseaux Sociaux']
     },
@@ -646,7 +646,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'Centre Agro-Écologique Sichem (Zéglé)',
       desc: 'Vidéo promotionnelle et documentaire immersif au cœur du centre agro-pastoral Sichem à Zéglé. Présentation des formations agricoles durables et de l\'autonomisation économique des jeunes au Togo.',
-      image: '/thumbnails/sichem.jpg',
+      image: `${import.meta.env.BASE_URL}thumbnails/sichem.jpg`,
       video: 'sichem.mp4',
       type: 'video',
       tags: ['DaVinci Resolve', 'Reportage Agricole', 'Étalonnage', 'Vlog Cinématique']
@@ -655,7 +655,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'Chronos228 — Spot Promotionnel Cave & Lounge',
       desc: 'Spot publicitaire rythmé et percutant pour la cave à vin premium & lounge Chronos228 à Lomé. Montage cut, ambiance nocturne feutrée, transitions stylisées et mise en valeur des références exclusives.',
-      image: '/thumbnails/chronos.jpg',
+      image: `${import.meta.env.BASE_URL}thumbnails/chronos.jpg`,
       video: 'chronos.mp4',
       type: 'video',
       tags: ['After Effects', 'Publicité Spot', 'Montage Punchy', 'Lomé']
@@ -664,7 +664,7 @@ export default function Portfolio() {
       category: 'Vidéo',
       title: 'Ferme Intégrée Circulaire (FIC-RC Togo)',
       desc: 'Production audiovisuelle et motion design institutionnel pour illustrer les principes d\'économie circulaire et d\'agriculture régénératrice de la FIC-RC. Un message écologique fort et percutant.',
-      image: '/thumbnails/fic-rc.jpg',
+      image: `${import.meta.env.BASE_URL}thumbnails/fic-rc.jpg`,
       video: 'fic-rc.mp4',
       type: 'video',
       tags: ['Motion Design', 'Animation Graphique', 'Storytelling Écologique', 'Direction Artistique']
@@ -674,7 +674,7 @@ export default function Portfolio() {
       title: 'DAYAL Entreprise — Identité Visuelle & Brand Board',
       desc: 'Conception complète de l\'identité visuelle pour DAYAL Entreprise : création du logotype, système chromatique, typographies institutionnelles et élaboration du Brand Board pour tous supports.',
       image: 'Dayal.png',
-      thumbnail: '/thumbnails/projects/dayal.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/dayal.webp`,
       type: 'image',
       tags: ['Brand Board', 'Logotype', 'Charte Graphique', 'Identité de Marque']
     },
@@ -683,7 +683,7 @@ export default function Portfolio() {
       title: 'AGRILIFE — Identité de Marque & Éco-Branding',
       desc: 'Univers de marque complet et brand board pour AGRILIFE. Une identité visuelle fraîche et organique inspirée de la terre et de l\'innovation agricole durable, avec logo moderne et déclinaisons.',
       image: 'agrilife.png',
-      thumbnail: '/thumbnails/projects/agrilife.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/agrilife.webp`,
       type: 'image',
       tags: ['Éco-Branding', 'Logotype', 'Affinity Designer', 'Identité Visuelle']
     },
@@ -692,7 +692,7 @@ export default function Portfolio() {
       title: 'PADNOVE Startup — Branding & Univers Visuel',
       desc: 'Identité de marque moderne et percutante pensée pour la startup innovante PADNOVE. Logotype distinctif, guide des styles, palettes audacieuses et supports digitaux à fort impact.',
       image: 'PADNOVE.png',
-      thumbnail: '/thumbnails/projects/padnove.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/padnove.webp`,
       type: 'image',
       tags: ['Startup Branding', 'Brand Board', 'Design Moderne', 'Charte Graphique']
     },
@@ -701,7 +701,7 @@ export default function Portfolio() {
       title: 'AGRIPRO — Univers Visuel & Charte Graphique',
       desc: 'Création d\'une identité visuelle solide et crédible pour AGRIPRO. Logotype mémorable, typographies professionnelles et charte complète adaptée aux partenariats B2B et à l\'agro-industrie africaine.',
       image: 'AGRIPRO.png',
-      thumbnail: '/thumbnails/projects/agripro.webp',
+      thumbnail: `${import.meta.env.BASE_URL}thumbnails/projects/agripro.webp`,
       type: 'image',
       tags: ['Branding B2B', 'Logotype', 'Agro-Industrie', 'Brand Board']
     },
@@ -890,7 +890,7 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection('accueil')}>
             <img
-              src="/logo.png?v=2"
+              src={`${import.meta.env.BASE_URL}logo.png?v=2`}
               alt="Lezozo Logo"
               className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(139,92,246,0.4)]"
             />
@@ -2021,7 +2021,7 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-4">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection('accueil')}>
             <img
-              src="/logo.png?v=2"
+              src={`${import.meta.env.BASE_URL}logo.png?v=2`}
               alt="Lezozo Logo"
               className="h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(139,92,246,0.3)]"
             />
