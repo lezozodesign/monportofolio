@@ -1455,7 +1455,7 @@ export default function Portfolio() {
             <div className="h-1.5 w-24 bg-gradient-to-r from-violet-500 to-indigo-500 mx-auto rounded-full shadow-lg shadow-violet-500/40 mt-4" />
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-8 md:grid-cols-3">
             {formations.map((item, idx) => {
               const ItemIcon = item.icon;
               return (
@@ -1482,7 +1482,7 @@ export default function Portfolio() {
                     <p className="text-xs font-bold text-violet-400 uppercase tracking-wider mb-1">
                       {item.school}
                     </p>
-                    <h3 className="text-base sm:text-xl font-black mb-2 sm:mb-3 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all">
+                    <h3 className="font-sans text-base sm:text-xl font-black mb-2 sm:mb-3 leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-violet-300 to-indigo-300 transition-all">
                       {item.degree}
                     </h3>
                     <p className="text-xs text-slate-400 font-medium mb-4 flex items-center gap-1.5">
