@@ -532,6 +532,15 @@ export default function Portfolio() {
     },
     {
       category: 'Vidéo',
+      title: 'OTRONE — Animation du logo',
+      desc: 'Animation du logo doré du concert OTRONE, réalisée par Lezozo.',
+      image: `${import.meta.env.BASE_URL}otrone-logo-animation.jpg`,
+      video: `${import.meta.env.BASE_URL}ANIMATION%20OTRONE.MP4`,
+      type: 'video',
+      tags: ['OTRONE', 'Logo', 'Motion Design']
+    },
+    {
+      category: 'Vidéo',
       title: 'ADN Togo — Cérémonie de Remise des Diplômes',
       desc: 'Captation événementielle, montage dynamique et habillage vidéo pour la remise des diplômes de la première promotion de l\'Académie Digitale Numérique. Un film rythmé et émouvant célébrant l\'excellence tech togolaise.',
       image: `${import.meta.env.BASE_URL}thumbnails/adn.jpg`,
