@@ -506,11 +506,11 @@ export default function Portfolio() {
     {
       category: 'Vidéo',
       title: "Concert d'hommage au Pasteur Davidson — Lezozo",
-      desc: 'Création de contenu pour le concert d’hommage au Pasteur Davidson, organisé le 11 octobre 2026 au CETEF 2000. Projet signé Lezozo.',
+      desc: 'Création de contenu pour le concert d’hommage au Pasteur Davidson, organisé le 8 novembre 2026 au CETEF 2000. Projet signé Lezozo.',
       image: `${import.meta.env.BASE_URL}concert-hommage-pasteur-davidson-poster.jpg`,
       video: `${import.meta.env.BASE_URL}concert-hommage-pasteur-davidson.mp4`,
       type: 'video',
-      tags: ['Lezozo', 'Création de contenu', 'Concert', 'CETEF 2000', '11 octobre 2026']
+      tags: ['Lezozo', 'Création de contenu', 'Concert', 'CETEF 2000', '8 novembre 2026']
     },
     {
       category: 'Vidéo',
