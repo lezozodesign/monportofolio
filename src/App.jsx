@@ -1943,8 +1943,6 @@ export default function Portfolio() {
                 <div className="flex flex-wrap gap-3">
                   {[
                     { icon: SiWhatsapp, href: 'https://wa.me/22899513224', label: 'WhatsApp', hoverClass: 'hover:bg-emerald-600' },
-                    { icon: SiTiktok, href: 'https://www.tiktok.com/@tam.universal', label: 'TikTok — TAM.officiel', hoverClass: 'hover:bg-violet-600' },
-                    { icon: SiTiktok, href: 'https://www.tiktok.com/@le_zozodesign', label: 'TikTok — le_zozodesign', hoverClass: 'hover:bg-violet-600' },
                     { icon: SiGithub, href: '#', label: 'Github', hoverClass: 'hover:bg-violet-600' },
                     { icon: FaLinkedin, href: '#', label: 'LinkedIn', hoverClass: 'hover:bg-violet-600' },
                     { icon: SiInstagram, href: '#', label: 'Instagram', hoverClass: 'hover:bg-violet-600' },
@@ -1965,6 +1963,32 @@ export default function Portfolio() {
                       </a>
                     );
                   })}
+                </div>
+                <div className="mt-5 border-t border-violet-500/15 pt-4">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+                    Retrouvez-moi sur TikTok
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { name: 'TAM.officiel', handle: '@tam.universal', href: 'https://www.tiktok.com/@tam.universal' },
+                      { name: 'le_zozodesign', handle: '@le_zozodesign', href: 'https://www.tiktok.com/@le_zozodesign' },
+                    ].map((account) => (
+                      <a
+                        key={account.handle}
+                        href={account.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex min-w-0 items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold transition-all hover:-translate-y-0.5 hover:border-violet-400/50 hover:text-violet-300 ${
+                          darkMode ? 'border-white/10 bg-white/[0.03] text-slate-200' : 'border-slate-200 bg-white/70 text-slate-700'
+                        }`}
+                      >
+                        <SiTiktok size={15} className="shrink-0" />
+                        <span className="truncate">{account.name}</span>
+                        <span className="hidden text-[10px] font-medium opacity-60 sm:inline">{account.handle}</span>
+                        <ExternalLink size={12} className="shrink-0 opacity-60" />
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
 
