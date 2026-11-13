@@ -1943,7 +1943,8 @@ export default function Portfolio() {
                 <div className="flex flex-wrap gap-3">
                   {[
                     { icon: SiWhatsapp, href: 'https://wa.me/22899513224', label: 'WhatsApp', hoverClass: 'hover:bg-emerald-600' },
-                    { icon: SiTiktok, href: 'https://www.tiktok.com/@le_zozodesign?_r=1&_t=ZG-992fHV0Fh8T', label: 'TikTok', hoverClass: 'hover:bg-violet-600' },
+                    { icon: SiTiktok, href: 'https://www.tiktok.com/@tam.universal', label: 'TikTok — TAM.officiel', hoverClass: 'hover:bg-violet-600' },
+                    { icon: SiTiktok, href: 'https://www.tiktok.com/@le_zozodesign', label: 'TikTok — le_zozodesign', hoverClass: 'hover:bg-violet-600' },
                     { icon: SiGithub, href: '#', label: 'Github', hoverClass: 'hover:bg-violet-600' },
                     { icon: FaLinkedin, href: '#', label: 'LinkedIn', hoverClass: 'hover:bg-violet-600' },
                     { icon: SiInstagram, href: '#', label: 'Instagram', hoverClass: 'hover:bg-violet-600' },
