@@ -506,9 +506,10 @@ export default function Portfolio() {
     {
       category: 'Branding & Logo',
       title: 'SG & PARTNERS — Identité visuelle et animation du logo',
-      desc: 'Présentation de l’identité visuelle de SG & PARTNERS, construite autour d’un sigle géométrique aux lignes architecturales. Le nom de l’entreprise et sa signature « Ici commence votre histoire » accompagnent le symbole pour former une identité claire et reconnaissable. Le logo est décliné en rouge et blanc, en bleu et blanc ainsi que sur une photographie de façade, afin de montrer comment il s’adapte à différents fonds. Une animation courte met le sigle en mouvement et révèle l’univers de la marque ; elle est proposée sans son pour laisser toute la place à la forme, aux couleurs et au logo.',
+      desc: 'Présentation de l’identité visuelle de SG & PARTNERS, construite autour d’un sigle géométrique aux lignes architecturales. Le nom de l’entreprise et sa signature « Ici commence votre histoire » accompagnent le symbole pour former une identité claire et reconnaissable. Le logo est décliné en rouge et blanc, en bleu et blanc ainsi que sur une photographie de façade, afin de montrer comment il s’adapte à différents fonds. Le projet comprend les deux versions de l’animation du logo : une version silencieuse et une version avec son.',
       image: `${import.meta.env.BASE_URL}sg-partners-logo-red-white.jpeg`,
       video: `${import.meta.env.BASE_URL}sg-partners-logo-animation.mp4`,
+      videoWithSound: `${import.meta.env.BASE_URL}sg-partners-logo-animation-with-sound.mp4`,
       type: 'video',
       muted: true,
       images: [
@@ -814,6 +815,7 @@ export default function Portfolio() {
                   src={selectedImage.video}
                   poster={selectedImage.image}
                   autoPlay
+                  muted={selectedImage.muted}
                   controls
                   playsInline
                   preload="metadata"
@@ -837,6 +839,21 @@ export default function Portfolio() {
                   >
                     Lancer la vidéo avec le son
                   </button>
+                )}
+                {selectedImage.videoWithSound && (
+                  <div className="mt-6">
+                    <h4 className="mb-2 font-bebas text-xl tracking-wide text-white">Animation du logo avec son</h4>
+                    <video
+                      src={selectedImage.videoWithSound}
+                      poster={selectedImage.image}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className="w-full max-h-[60vh] rounded-2xl border border-violet-500/20 object-contain shadow-2xl"
+                    >
+                      Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                  </div>
                 )}
                 {selectedImage.images && selectedImage.images.length > 0 && (
                   <div className="relative mt-4 flex items-center justify-center">
