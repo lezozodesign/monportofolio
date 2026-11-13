@@ -1943,7 +1943,7 @@ export default function Portfolio() {
                 <div className="flex flex-wrap gap-3">
                   {[
                     { icon: SiWhatsapp, href: 'https://wa.me/22899513224', label: 'WhatsApp', hoverClass: 'hover:bg-emerald-600' },
-                    { icon: SiGithub, href: '#', label: 'Github', hoverClass: 'hover:bg-violet-600' },
+                    { icon: SiGithub, href: 'https://github.com/lezozodesign', label: 'Github', hoverClass: 'hover:bg-violet-600' },
                     { icon: FaLinkedin, href: '#', label: 'LinkedIn', hoverClass: 'hover:bg-violet-600' },
                     { icon: SiInstagram, href: 'https://www.instagram.com/lezozo25', label: 'Instagram', hoverClass: 'hover:bg-violet-600' },
                   ].map((social, idx) => {
